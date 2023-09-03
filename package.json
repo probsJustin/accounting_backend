@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@nestjs/config": "^3.0.1",
+    "@nestjs/sequelize": "^10.0.0",
+    "sequelize": "^6.32.1",
+    "sequelize-typescript": "^2.1.5"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.15"
+  }
+}
