@@ -1,12 +1,16 @@
 // proxy.service.ts
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { ConstantsService } from '../constants/constants.service';
 
 @Injectable()
 export class ProxyService {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private constants: ConstantsService
+    ) {}
 
-  async forwardRequest(method: string, endpoint: string, debugEndpoint: string, body?: any, headers?: any, params?: any) {
+  async forwardRequest(method: string, endpoint: string, body?: any, headers?: any, params?: any) {
     // Send request to the original endpoint
     const response = await this.httpService.request({
       method,
@@ -20,7 +24,7 @@ export class ProxyService {
     // Note: For simplicity, we're not awaiting or catching any errors from the debug request.
     this.httpService.request({
       method,
-      url: debugEndpoint,
+      url: this.constants.WEBHOOK_URL,
       data: body,
       headers: headers,
       params: params,
