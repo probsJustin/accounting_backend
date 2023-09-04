@@ -1,13 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
-
-import { AppService } from './account.service';
+import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
+import { AccountService } from './account.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly acccountService: AccountService) {}
 
   @Get()
-  getData() {
-    return this.appService.getData();
+  getAccount() {
+    return this.acccountService.getAccount();
+  }
+
+  @Post()
+  createAccount() {
+    return this.acccountService.getAccount();
+  }
+
+  @Put()
+  updateAccount() {
+    return this.acccountService.getAccount();
+  }
+
+  @Delete()
+  deleteAccount() {
+    return this.acccountService.getAccount();
   }
 }

@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 
-import { AppService } from './user.service';
+import { AppService } from '../app.service';
 
 describe('AppService', () => {
   let service: AppService;

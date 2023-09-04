@@ -1,13 +1,28 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
 
-import { AppService } from './billing.service';
+import { BillingService } from './billing.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly billingService: BillingService) {}
 
   @Get()
-  getData() {
-    return this.appService.getData();
+  getBillingInformation() {
+    return this.billingService.getBillingInformation();
+  }
+
+  @Post()
+  createBillingInformation() {
+    return this.billingService.getBillingInformation();
+  }
+
+  @Put()
+  updateBillingInformation() {
+    return this.billingService.getBillingInformation();
+  }
+
+  @Delete()
+  deleteBillingInformation() {
+    return this.billingService.getBillingInformation();
   }
 }

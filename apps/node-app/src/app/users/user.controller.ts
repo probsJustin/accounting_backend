@@ -1,13 +1,28 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
 
-import { AppService } from './user.service';
+import { UserService } from './user.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get()
-  getData() {
-    return this.appService.getData();
+  getUser() {
+    return this.userService.getUser();
+  }
+
+  @Post()
+  createUser() {
+    return this.userService.getUser();
+  }
+
+  @Put()
+  updateUser() {
+    return this.userService.getUser();
+  }
+
+  @Delete()
+  deleteUser() {
+    return this.userService.getUser();
   }
 }
