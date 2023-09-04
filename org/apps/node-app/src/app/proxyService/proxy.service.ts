@@ -2,6 +2,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConstantsService } from '../constants/constants.service';
+import { inspect } from 'util';
 
 @Injectable()
 export class ProxyService {
@@ -18,18 +19,22 @@ export class ProxyService {
       data: body,
       headers: headers,
       params: params,
-    }).toPromise();
-
+    }).toPromise().catch(err => {
+        console.error("Failed to send request to debug endpoint:", err);
+        throw err;
+      });
+      console.log('test');
     // Duplicate the request to the debug endpoint
     // Note: For simplicity, we're not awaiting or catching any errors from the debug request.
-    this.httpService.request({
+    const debugResponse = await this.httpService.request({
       method,
       url: this.constants.WEBHOOK_URL,
       data: body,
       headers: headers,
       params: params,
     }).toPromise().catch(err => {
-      console.error("Failed to send request to debug endpoint:", err);
+      console.log("Failed to send request to debug endpoint:", err);
+      console.log(`DEBUG_RESPONSE: ${inspect(debugResponse)}`);
     });
 
     return response.data;
