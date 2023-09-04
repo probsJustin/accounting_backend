@@ -8,7 +8,7 @@ import { inspect } from 'util';
 export class ProxyService {
   constructor(
     private httpService: HttpService
-        ) {}
+    ) {}
 
   async forwardRequest(debug: string, method: string, endpoint: string, body?: any, headers?: any, params?: any) {
     // Send request to the original endpoint
