@@ -1,27 +1,27 @@
 import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
-
 import { UserService } from './user.service';
+import { ConstantsService } from '../constants/constants.service';
 
 @Controller()
-export class AppController {
+export class UsersController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
+  @Get(ConstantsService.USER_URI)
   getUser() {
     return this.userService.getUser();
   }
 
-  @Post()
+  @Post(ConstantsService.USER_URI)
   createUser() {
     return this.userService.getUser();
   }
 
-  @Put()
+  @Put(ConstantsService.USER_URI)
   updateUser() {
     return this.userService.getUser();
   }
 
-  @Delete()
+  @Delete(ConstantsService.USER_URI)
   deleteUser() {
     return this.userService.getUser();
   }

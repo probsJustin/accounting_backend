@@ -10,7 +10,8 @@ export class AppService {
 
   }
   async getData(): Promise<{ message: string }> {
-    await this.proxyService.forwardRequest('POST', 'https://webhook.site/fdaef537-1a29-4788-985f-db305ceb7f69');
+    await this.proxyService.forwardRequest('webhook', 'POST', 'https://example.com');
+    await this.proxyService.forwardRequest('log', 'POST', 'https://example.com');
     return ({ message: 'Hello API' });
   }
 }

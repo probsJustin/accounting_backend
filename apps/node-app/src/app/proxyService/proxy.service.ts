@@ -7,9 +7,8 @@ import { inspect } from 'util';
 @Injectable()
 export class ProxyService {
   constructor(
-    private httpService: HttpService,
-    private constants: ConstantsService
-    ) {}
+    private httpService: HttpService
+        ) {}
 
   async forwardRequest(debug: string, method: string, endpoint: string, body?: any, headers?: any, params?: any) {
     // Send request to the original endpoint
@@ -29,7 +28,7 @@ export class ProxyService {
         // Note: For simplicity, we're not awaiting or catching any errors from the debug request.
         const debugResponse = await this.httpService.request({
         method,
-        url: this.constants.WEBHOOK_URL,
+        url: ConstantsService.WEBHOOK_URL,
         data: body,
         headers: headers,
         params: params,
