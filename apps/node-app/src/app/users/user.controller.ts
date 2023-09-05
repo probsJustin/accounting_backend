@@ -5,20 +5,22 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto } from './types/user.dto';
 
 @ApiTags('Users')
-@Controller()
+@Controller(`${ConstantsService.USER_URI}`)
 export class UsersController {
   constructor(private readonly userService: UserService) {}
 
-  @Get(`${ConstantsService.USER_URI}/:userUuid`)
-  @ApiOperation({ summary: 'Get Billing Information' })
+  @Get(`/:userUuid`)
+  @ApiOperation({ summary: 'Get User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   getUser(@Param('userUuid') userId: string) {
     return this.userService.getUser(userId);
   }
 
-  @Post(`${ConstantsService.USER_URI}/:userUuid`)
-  @ApiOperation({ summary: 'Create Billing Information' })
+  @Post(`/:userUuid`)
+  @ApiOperation({ summary: 'Create User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   createUser(
     @Param('userUuid') userId: string,
     @Body() createUserDto: CreateUserDto 
@@ -26,9 +28,10 @@ export class UsersController {
     return this.userService.createUser(userId);
   }
 
-  @Put(`${ConstantsService.USER_URI}/:userUuid`)
-  @ApiOperation({ summary: 'Update Billing Information' })
+  @Put(`/:userUuid`)
+  @ApiOperation({ summary: 'Update User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   updateUser(
     @Param('userUuid') userId: string,
     @Body() updateUserDto: UpdateUserDto
@@ -36,9 +39,10 @@ export class UsersController {
     return this.userService.updateUser(userId);
   }
 
-  @Delete(`${ConstantsService.USER_URI}/:userUuid`)
-  @ApiOperation({ summary: 'Delete Billing Information' })
+  @Delete(`/:userUuid`)
+  @ApiOperation({ summary: 'Delete User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   deleteUser(@Param('userUuid') userId: string) {
     return this.userService.deleteUser(userId);
   }

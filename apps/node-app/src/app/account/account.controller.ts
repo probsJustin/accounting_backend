@@ -5,22 +5,24 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
 
 @ApiTags('Account')
-@Controller()
+@Controller(`${ConstantsService.ACCOUNT_URI}`)
 export class AccountController {
   constructor(
     private readonly acccountService: AccountService,
     ) {}
 
-  @Get(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
+  @Get(`/:accountUuid`)
   @ApiOperation({ summary: 'Get Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   getAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.getAccount(accountUuid);
   }
 
-  @Post(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
+  @Post(`/:accountUuid`)
   @ApiOperation({ summary: 'Creeate Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   createAccount(
     @Param('accountUuid') accountUuid: string,
     @Body() createAccountDto: CreateAccountDto
@@ -28,9 +30,10 @@ export class AccountController {
     return this.acccountService.createAccount(accountUuid, createAccountDto);
   }
 
-  @Put(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
+  @Put(`/:accountUuid`)
   @ApiOperation({ summary: 'Update Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   updateAccount(
     @Param('accountUuid') accountUuid: string,
     @Body() updateAccountDto: UpdateAccountDto
@@ -38,9 +41,10 @@ export class AccountController {
     return this.acccountService.updateAccount(accountUuid, updateAccountDto);
   }
 
-  @Delete(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
+  @Delete(`/:accountUuid`)
   @ApiOperation({ summary: 'Delete Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
   deleteAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.deleteAccount(accountUuid);
   }
