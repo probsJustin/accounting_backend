@@ -15,4 +15,8 @@ export class ConstantsService {
     static BILLING_URI = '/billing'
     static USER_URI = '/user'
 
+
+    static ACTIONS_REFUND_AN_ACCOUNT = '/refund';
+    static ACTIONS_BILL_AN_ACCOUNT = '/bill';
+    static ACTIONS_GET_TRANSACTIONS = '/transactions';
 }

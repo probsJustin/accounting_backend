@@ -5,17 +5,15 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
 import { AppModule } from './app/app.module';
-import { Sequelize } from  'sequelize';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-  .setTitle('My API title')
-  .setDescription('My API description')
+  .setTitle('Accounting Backend')
+  .setDescription('Accounting Backend to Bill and Keep Track of Various Things....Accounting Related')
   .setVersion('1.0')
   // Optionally add more configuration like .addBearerAuth()
   .build();

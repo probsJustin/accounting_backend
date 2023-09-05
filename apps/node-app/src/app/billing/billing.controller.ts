@@ -13,7 +13,7 @@ export class BillingController {
   @Get(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  getBillingInformation(@Param(':accountUuid') accountId: string) {
+  getBillingInformation(@Param('accountUuid') accountId: string) {
     return this.billingService.getBillingInformation();
   }
 
@@ -21,7 +21,7 @@ export class BillingController {
   @ApiOperation({ summary: 'Create Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   createBillingInformation(
-    @Param(':accountUuid') accountId: string,
+    @Param('accountUuid') accountId: string,
     @Body() createBillingInfo: CreateBillingInfo
     ) {
     return this.billingService.getBillingInformation();
@@ -40,7 +40,7 @@ export class BillingController {
   @Delete(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Delete Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  deleteBillingInformation(@Param(':accountUuid') accountId: string) {
+  deleteBillingInformation(@Param('accountUuid') accountId: string) {
     return this.billingService.getBillingInformation();
   }
 }

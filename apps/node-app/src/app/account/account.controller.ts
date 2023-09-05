@@ -14,7 +14,7 @@ export class AccountController {
   @Get(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Get Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  getAccount(@Param(':accountUuid') accountId: string) {
+  getAccount(@Param('accountUuid') accountId: string) {
     return this.acccountService.getAccount();
   }
 
@@ -22,7 +22,7 @@ export class AccountController {
   @ApiOperation({ summary: 'Creeate Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   createAccount(
-    @Param(':accountUuid') accountId: string,
+    @Param('accountUuid') accountId: string,
     @Body() createAccountDto: CreateAccountDto
     ) {
     return this.acccountService.getAccount();
@@ -32,7 +32,7 @@ export class AccountController {
   @ApiOperation({ summary: 'Update Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   updateAccount(
-    @Param(':accountUuid') accountId: string,
+    @Param('accountUuid') accountId: string,
     @Body() updateAccountDto: UpdateAccountDto
     ) {
     return this.acccountService.getAccount();
@@ -41,7 +41,7 @@ export class AccountController {
   @Delete(`${ConstantsService.ACCOUNT_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Delete Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  deleteAccount(@Param(':accountUuid') accountId: string) {
+  deleteAccount(@Param('accountUuid') accountId: string) {
     return this.acccountService.getAccount();
   }
 }
