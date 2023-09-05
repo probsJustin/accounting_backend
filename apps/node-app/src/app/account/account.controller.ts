@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
 import { AccountService } from './account.service';
-import { ConstantsService } from '../constants/constants.service';
+import { ConstantsService } from '../util/constants/constants.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Account')

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProxyService } from './proxyService/proxy.service';
+import { ProxyService } from './util/proxyService/proxy.service';
 
 
 @Injectable()
