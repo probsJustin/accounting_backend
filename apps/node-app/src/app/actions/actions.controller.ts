@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from '@nestjs/common';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateBillingInfo, UpdateBillingInfo } from '../billing/types/BillingInfo.dto';
 import { ActionService } from './actions.service';
 import { BillAnAccountDto, RefundAnAccountDto } from './types/actions.dto';
+import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
 
 @ApiTags('Actions')
 @Controller(`${ConstantsService.ACTIONS_URI}`)
@@ -11,7 +11,7 @@ export class ActionController {
   constructor(private readonly actionService: ActionService) {}
 
   @Get(`${ConstantsService.ACTIONS_GET_TRANSACTIONS}/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -20,7 +20,7 @@ export class ActionController {
   }
 
   @Post(`${ConstantsService.ACTIONS_BILL_AN_ACCOUNT}/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Bill A Specific Account' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -32,7 +32,7 @@ export class ActionController {
   }
 
   @Post(`${ConstantsService.ACTIONS_REFUND_AN_ACCOUNT}/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Bill A Specific Account' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })

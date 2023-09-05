@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
-import { LogParams } from '../util/logParams/logParams.decorator';
+import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
 
 @ApiTags('Account')
 @Controller(`${ConstantsService.ACCOUNT_URI}`)
@@ -13,7 +13,7 @@ export class AccountController {
     ) {}
 
   @Get(`/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -22,7 +22,7 @@ export class AccountController {
   }
 
   @Post(`/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Create Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -34,7 +34,7 @@ export class AccountController {
   }
 
   @Put(`/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Update Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -46,7 +46,7 @@ export class AccountController {
   }
 
   @Delete(`/:accountUuid`)
-  @LogParams()
+  @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Delete Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
