@@ -11,6 +11,7 @@ export class BillingController {
   constructor(private readonly billingService: BillingService) {}
 
   @Get(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -19,6 +20,7 @@ export class BillingController {
   }
 
   @Post(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Create Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -30,6 +32,7 @@ export class BillingController {
   }
 
   @Put(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Update Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -41,6 +44,7 @@ export class BillingController {
   }
 
   @Delete(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Delete Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })

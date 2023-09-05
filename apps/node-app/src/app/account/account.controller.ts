@@ -3,6 +3,7 @@ import { AccountService } from './account.service';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
+import { LogParams } from '../util/logParams/logParams.decorator';
 
 @ApiTags('Account')
 @Controller(`${ConstantsService.ACCOUNT_URI}`)
@@ -12,6 +13,7 @@ export class AccountController {
     ) {}
 
   @Get(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Get Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -20,7 +22,8 @@ export class AccountController {
   }
 
   @Post(`/:accountUuid`)
-  @ApiOperation({ summary: 'Creeate Account Information' })
+  @LogParams()
+  @ApiOperation({ summary: 'Create Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   createAccount(
@@ -31,6 +34,7 @@ export class AccountController {
   }
 
   @Put(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Update Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -42,6 +46,7 @@ export class AccountController {
   }
 
   @Delete(`/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Delete Account Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })

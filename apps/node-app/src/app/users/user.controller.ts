@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto } from './types/user.dto';
+import { LogParams } from '../util/logParams/logParams.decorator';
 
 @ApiTags('Users')
 @Controller(`${ConstantsService.USER_URI}`)
@@ -10,6 +11,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Get(`/:userUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Get User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -18,6 +20,7 @@ export class UsersController {
   }
 
   @Post(`/:userUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Create User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -29,6 +32,7 @@ export class UsersController {
   }
 
   @Put(`/:userUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Update User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -40,6 +44,7 @@ export class UsersController {
   }
 
   @Delete(`/:userUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Delete User' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })

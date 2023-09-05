@@ -11,6 +11,7 @@ export class ActionController {
   constructor(private readonly actionService: ActionService) {}
 
   @Get(`${ConstantsService.ACTIONS_GET_TRANSACTIONS}/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -19,6 +20,7 @@ export class ActionController {
   }
 
   @Post(`${ConstantsService.ACTIONS_BILL_AN_ACCOUNT}/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Bill A Specific Account' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -30,6 +32,7 @@ export class ActionController {
   }
 
   @Post(`${ConstantsService.ACTIONS_REFUND_AN_ACCOUNT}/:accountUuid`)
+  @LogParams()
   @ApiOperation({ summary: 'Bill A Specific Account' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
