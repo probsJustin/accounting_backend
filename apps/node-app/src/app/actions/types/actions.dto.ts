@@ -3,7 +3,7 @@ import { IsDate, IsString } from "class-validator";
 
 
 
-export class BillAnAccount{
+export class BillAnAccountDto {
 
     @IsString()
     @ApiProperty()
@@ -22,7 +22,7 @@ export class BillAnAccount{
     date: Date;
 }
 
-export class RefundAnAccount {
+export class RefundAnAccountDto {
     
     @IsString()
     @ApiProperty()

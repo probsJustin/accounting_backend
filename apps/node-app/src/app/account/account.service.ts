@@ -1,19 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import Account from './types/account.type';
+import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
 
 @Injectable()
 export class AccountService {
   
-  getAccount(): Account {
+  getAccount(accountUuid: string): Account {
     return;
   }
-  updateAccount(): Account {
+  updateAccount(accountUuid: string, updateAccount: UpdateAccountDto): Account {
     return;
   }
-  createAccount(): Account {
+  createAccount(accountUuid: string, createAccount: CreateAccountDto): Account {
     return;
   }
-  deleteAccount() {
+  deleteAccount(accountUuid: string) {
     return;
   }
 }

@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import BillingInfo from './types/billingInfo.type';
+import { CreateBillingInfo, UpdateBillingInfo } from './types/BillingInfo.dto';
 
 @Injectable()
 export class BillingService {
-  getBillingInformation(): BillingInfo {
-    return;
+  getBillingInformation(accountUuid: string): string {
+    return accountUuid;
   }
-  createBillingInformation(): BillingInfo {
-    return;
+  createBillingInformation(accountUuid: string, createBillingInfo: CreateBillingInfo): string {
+    return accountUuid;
   }
-  updateBillingInformation(): BillingInfo {
-    return;
+  updateBillingInformation(accountUuid: string, updateBillingInfo: UpdateBillingInfo): string {
+    return accountUuid;
   }
-  deleteBillingInformation() {
-    return;
+  deleteBillingInformation(accountUuid: string) {
+    return accountUuid;
   }
 }

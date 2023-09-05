@@ -13,7 +13,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   getUser(@Param('userUuid') userId: string) {
-    return this.userService.getUser();
+    return this.userService.getUser(userId);
   }
 
   @Post(`${ConstantsService.USER_URI}/:userUuid`)
@@ -23,7 +23,7 @@ export class UsersController {
     @Param('userUuid') userId: string,
     @Body() createUserDto: CreateUserDto 
     ) {
-    return this.userService.getUser();
+    return this.userService.createUser(userId);
   }
 
   @Put(`${ConstantsService.USER_URI}/:userUuid`)
@@ -33,13 +33,13 @@ export class UsersController {
     @Param('userUuid') userId: string,
     @Body() updateUserDto: UpdateUserDto
     ) {
-    return this.userService.getUser();
+    return this.userService.updateUser(userId);
   }
 
   @Delete(`${ConstantsService.USER_URI}/:userUuid`)
   @ApiOperation({ summary: 'Delete Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   deleteUser(@Param('userUuid') userId: string) {
-    return this.userService.getUser();
+    return this.userService.deleteUser(userId);
   }
 }

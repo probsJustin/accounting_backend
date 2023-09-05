@@ -13,34 +13,34 @@ export class BillingController {
   @Get(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Get Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  getBillingInformation(@Param('accountUuid') accountId: string) {
-    return this.billingService.getBillingInformation();
+  getBillingInformation(@Param('accountUuid') accountUuid: string) {
+    return this.billingService.getBillingInformation(accountUuid);
   }
 
   @Post(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Create Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   createBillingInformation(
-    @Param('accountUuid') accountId: string,
+    @Param('accountUuid') accountUuid: string,
     @Body() createBillingInfo: CreateBillingInfo
     ) {
-    return this.billingService.getBillingInformation();
+    return this.billingService.createBillingInformation(accountUuid, createBillingInfo);
   }
 
   @Put(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Update Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   updateBillingInformation(
-    @Param(':accountUuid') accountId: string,
+    @Param('accountUuid') accountUuid: string,
     @Body() updateBillingInfo: UpdateBillingInfo
     ) {
-    return this.billingService.getBillingInformation();
+    return this.billingService.updateBillingInformation(accountUuid, updateBillingInfo);
   }
 
   @Delete(`${ConstantsService.BILLING_URI}/:accountUuid`)
   @ApiOperation({ summary: 'Delete Billing Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  deleteBillingInformation(@Param('accountUuid') accountId: string) {
-    return this.billingService.getBillingInformation();
+  deleteBillingInformation(@Param('accountUuid') accountUuid: string) {
+    return this.billingService.deleteBillingInformation(accountUuid);
   }
 }

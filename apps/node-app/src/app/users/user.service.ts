@@ -3,16 +3,16 @@ import User from './types/user.type';
 
 @Injectable()
 export class UserService {
-  getUser(): User {
-    return;
+  getUser(userId: string): string {
+    return userId;
   }
-  updateUser(): User {
-    return;
+  updateUser(userId: string): string {
+    return userId;
   }
-  createUser(): User {
-    return;
+  createUser(userId: string): string {
+    return userId;
   }
-  deleteUser() {
-    return;
+  deleteUser(userId: string) {
+    return userId;
   }
 }
