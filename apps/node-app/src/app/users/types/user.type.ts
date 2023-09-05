@@ -1,6 +1,3 @@
-
-
-
 export default interface User {
     username: string,
     firstname: string,

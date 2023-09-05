@@ -1,6 +1,6 @@
 
 
-const enum billingType {
+export enum BillingType {
     visa,
     paypal,
     bitcoin
@@ -8,6 +8,6 @@ const enum billingType {
 
 export default interface BillingInfo {
     billingAccount: string,
-    billingType: billingType,
+    billingType: BillingType,
     billingDetailsMisc: string,
 }
