@@ -27,10 +27,9 @@ export class AccountController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   createAccount(
-    @Param('accountUuid') accountUuid: string,
     @Body() createAccountDto: CreateAccountDto
     ) {
-    return this.acccountService.createAccount(accountUuid, createAccountDto);
+    return this.acccountService.createAccount(createAccountDto);
   }
 
   @Put(`/:accountUuid`)
