@@ -16,10 +16,33 @@ import { AccountService } from './account/account.service';
 import { ActionController } from './actions/actions.controller';
 import { ActionModule } from './actions/actions.module';
 import { ActionService } from './actions/actions.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
-  imports: [DatabaseModule, ConfigModule, HttpModule, ProxyModule, ConstantsModule],
-  controllers: [ ActionController, UsersController, BillingController, AccountController],
-  providers: [AppService, AccountService, ProxyService, ConstantsService, UserService, BillingService, ActionService],
+  imports: [
+    DatabaseModule, 
+    ConfigModule, 
+    HttpModule, 
+    ProxyModule, 
+    ConstantsModule, 
+    ScheduleModule.forRoot(),
+    JobsModule
+  ],
+  controllers: [ 
+    ActionController, 
+    UsersController, 
+    BillingController, 
+    AccountController
+  ],
+  providers: [
+    AppService, 
+    AccountService, 
+    ProxyService, 
+    ConstantsService, 
+    UserService, 
+    BillingService, 
+    ActionService
+  ],
 })
 export class AppModule {}
