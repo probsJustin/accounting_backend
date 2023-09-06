@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from
 import { BillingService } from './billing.service';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateBillingInfo, UpdateBillingInfo } from './types/BillingInfo.dto';
+import { CreateBillingInfo, UpdateBillingInfo } from './types/billingInfo.dto';
 import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
 
 @ApiTags('Billing')

@@ -17,6 +17,7 @@ export class AccountService {
       }
     });
   }
+  
   async updateAccount(accountUuid: string, updateAccount: UpdateAccountDto): Promise<Account> {
     const rowCount = await this.accountModule.update(UpdateAccountDto, {
       where: {
@@ -33,15 +34,18 @@ export class AccountService {
       throw new PageNotFoundError(`No Account Found...... None updated....`)
     }  
   }
+
   createAccount(createAccount: CreateAccountDto): Promise<Account> {
     return this.accountModule.create({
       CreateAccountDto
     });
   }
+
   deleteAccount(accountUuid: string): Promise<number> {
     return this.accountModule.destroy({
       where: {
         accountUuid
       }
-    });  }
+    });  
+  }
 }
