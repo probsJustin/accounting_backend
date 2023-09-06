@@ -33,7 +33,7 @@ export class ActionController {
 
   @Post(`${ConstantsService.ACTIONS_REFUND_AN_ACCOUNT}/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
-  @ApiOperation({ summary: 'Bill A Specific Account' })
+  @ApiOperation({ summary: 'Refund A Specific Account' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   refundAnAccount(
