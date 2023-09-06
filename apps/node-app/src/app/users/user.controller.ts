@@ -28,7 +28,7 @@ export class UsersController {
     @Param('userUuid') userId: string,
     @Body() createUserDto: CreateUserDto 
     ) {
-    return this.userService.createUser(userId);
+    return this.userService.createUser(userId, createUserDto);
   }
 
   @Put(`/:userUuid`)
@@ -40,7 +40,7 @@ export class UsersController {
     @Param('userUuid') userId: string,
     @Body() updateUserDto: UpdateUserDto
     ) {
-    return this.userService.updateUser(userId);
+    return this.userService.updateUser(userId, updateUserDto);
   }
 
   @Delete(`/:userUuid`)
