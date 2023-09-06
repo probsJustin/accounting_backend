@@ -3,11 +3,11 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class JobsService {
-  private readonly logger = new Logger(TasksService.name);
+  private readonly logger = new Logger(JobsService.name);
 
-  @Cron(CronExpression.EVERY_30_MINUTES)
+  @Cron(CronExpression.EVERY_5_SECONDS)
   handleCron() {
-    this.logger.debug('Called every 30 minutes');
+    this.logger.debug('Called every 5 seconds');
     // Place your task logic here
   }
 }
