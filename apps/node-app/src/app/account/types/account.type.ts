@@ -4,13 +4,13 @@ import BillingInfo from '../../billing/types/billingInfo.type';
 import User from '../../users/types/user.type';
 
 export default interface Account {
-    emergencyContact: User,
+    emergencyContact: string,
     accountUuid: string,
     accountName: string,
-    billingHistory: BillingHistory,
-    billingInfo: BillingInfo,
+    billingHistory: string,
+    billingInfo: string,
     initEmail: string,
     description: string,
-    admins: User[],
-    users: User[],
+    admins: string,
+    users: string,
 }

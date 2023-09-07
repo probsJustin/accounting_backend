@@ -3,15 +3,18 @@ import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
 import { DatabaseModule } from '../database.module';
 import { Account } from './types/account.model';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class AccountService {
   constructor(
-    @Inject('Account') private readonly accountModule: typeof Account
+    @InjectModel(Account)
+    private readonly accountModel: typeof Account
+
   ){}
   
   getAccount(accountUuid: string): Promise<Account> {
-    return this.accountModule.findOne({
+    return this.accountModel.findOne({
       where:{
         accountUuid
       }
@@ -19,13 +22,13 @@ export class AccountService {
   }
   
   async updateAccount(accountUuid: string, updateAccount: UpdateAccountDto): Promise<Account> {
-    const rowCount = await this.accountModule.update(UpdateAccountDto, {
+    const rowCount = await this.accountModel.update(UpdateAccountDto, {
       where: {
         accountUuid
       }
     });
     if(rowCount?.length > 0){
-      return this.accountModule.findOne({
+      return this.accountModel.findOne({
         where:{
           accountUuid
         }
@@ -36,13 +39,13 @@ export class AccountService {
   }
 
   createAccount(createAccount: CreateAccountDto): Promise<Account> {
-    return this.accountModule.create({
+    return this.accountModel.create({
       CreateAccountDto
     });
   }
 
   deleteAccount(accountUuid: string): Promise<number> {
-    return this.accountModule.destroy({
+    return this.accountModel.destroy({
       where: {
         accountUuid
       }

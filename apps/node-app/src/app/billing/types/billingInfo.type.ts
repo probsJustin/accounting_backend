@@ -8,6 +8,6 @@ export enum BillingType {
 
 export default interface BillingInfo {
     billingAccount: string,
-    billingType: BillingType,
+    billingType: string,
     billingDetailsMisc: string,
 }

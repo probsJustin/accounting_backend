@@ -1,8 +1,10 @@
 import { Table, Column, Model } from 'sequelize-typescript';
+import { CreateUserDto } from './user.dto';
 
 
 @Table
-export class Users extends Model {
+export class User extends Model {
+
     @Column
     username: string;
 
@@ -21,3 +23,4 @@ export class Users extends Model {
     @Column
     description: string
 }
+

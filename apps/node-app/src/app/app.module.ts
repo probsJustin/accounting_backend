@@ -10,14 +10,13 @@ import { ConstantsService } from './util/constants/constants.service';
 import { UsersController } from './users/user.controller';
 import { BillingController } from './billing/billing.controller';
 import { AccountController } from './account/account.controller';
-import { UserService } from './users/user.service';
-import { BillingService } from './billing/billing.service';
-import { AccountService } from './account/account.service';
 import { ActionController } from './actions/actions.controller';
-import { ActionModule } from './actions/actions.module';
 import { ActionService } from './actions/actions.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { JobsModule } from './jobs/jobs.module';
+import { AccountModule } from './account/account.module';
+import { UserModule } from './users/user.module';
+import { BillingModule } from './billing/billing.module';
 
 @Module({
   imports: [
@@ -27,7 +26,10 @@ import { JobsModule } from './jobs/jobs.module';
     ProxyModule, 
     ConstantsModule, 
     ScheduleModule.forRoot(),
-    JobsModule
+    JobsModule,
+    AccountModule,
+    UserModule,
+    BillingModule,
   ],
   controllers: [ 
     ActionController, 
@@ -37,12 +39,9 @@ import { JobsModule } from './jobs/jobs.module';
   ],
   providers: [
     AppService, 
-    AccountService, 
     ProxyService, 
     ConstantsService, 
-    UserService, 
-    BillingService, 
-    ActionService
+    ActionService,
   ],
 })
 export class AppModule {}

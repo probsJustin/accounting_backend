@@ -1,6 +1,4 @@
 import { IsEmail, IsOptional, IsString } from "class-validator";
-import BillingHistory from "../../billing/types/billingHistory.type";
-import BillingInfo from "../../billing/types/billingInfo.type";
 import User from "../../users/types/user.type";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -8,7 +6,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateAccountDto {
     @IsEmail()
     @ApiProperty()
-    emergencyContact: User;
+    emergencyContact: string;
 
     @IsString()
     @ApiProperty()
@@ -19,10 +17,10 @@ export class CreateAccountDto {
     accountName: string;
     
     @ApiProperty()
-    billingHistory: BillingHistory;
+    billingHistory: string;
     
     @ApiProperty()
-    billingInfo: BillingInfo;
+    billingInfo: string;
     
     @ApiProperty()
     @IsEmail()
@@ -33,10 +31,10 @@ export class CreateAccountDto {
     description: string;
 
     @ApiProperty()
-    admins: User[];
+    admins: string;
 
     @ApiProperty()
-    users: User[];
+    users: string;
 }
 
 export class UpdateAccountDto {
@@ -44,7 +42,7 @@ export class UpdateAccountDto {
     @ApiProperty()
     @IsOptional()
     @IsEmail()
-    emergencyContact: User;
+    emergencyContact: string;
 
     @ApiProperty()
     @IsOptional()
@@ -58,11 +56,11 @@ export class UpdateAccountDto {
 
     @ApiProperty()
     @IsOptional()
-    billingHistory: BillingHistory;
+    billingHistory: string;
     
     @ApiProperty()
     @IsOptional()
-    billingInfo: BillingInfo;
+    billingInfo: string;
     
     @ApiProperty()
     @IsOptional()
@@ -76,9 +74,9 @@ export class UpdateAccountDto {
 
     @ApiProperty()
     @IsOptional()
-    admins: User[];
+    admins: string;
     
     @ApiProperty()
     @IsOptional()
-    users: User[];
+    users: string;
 }

@@ -1,8 +1,10 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsOptional } from 'class-validator';
+import { User } from './users.model';
 
 export class CreateUserDto {
+  constructor(){ }
 
   @ApiProperty()
   @IsString()
@@ -27,8 +29,10 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   description: string;
-  // Add any other fields as necessary
+
+
 }
+
 
 export class UpdateUserDto {
 
@@ -64,3 +68,4 @@ export class UpdateUserDto {
 
   // Add any other fields as necessary
 }
+

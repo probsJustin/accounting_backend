@@ -48,7 +48,6 @@ export class UsersController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
- //must be above the function itself
   deleteUser(@Param('userUuid') userId: string) {
     return this.userService.deleteUser(userId);
   }

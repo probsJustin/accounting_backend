@@ -2,13 +2,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateBillingInfo, UpdateBillingInfo } from './types/billingInfo.dto';
 import { BillingInfo } from './types/billingInfo.model';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class BillingService {
   constructor(
-    @Inject('BillingInfo') private readonly billingModel: typeof BillingInfo
-
+    @InjectModel(BillingInfo)
+    private readonly billingModel: typeof BillingInfo
   ){}
+
   getBillingInformation(accountUuid: string): Promise<BillingInfo> {
     return this.billingModel.findOne({
       where: {

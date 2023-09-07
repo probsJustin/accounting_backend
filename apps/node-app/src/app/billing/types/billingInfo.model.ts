@@ -7,7 +7,7 @@ export class BillingInfo extends Model {
     @Column
     billingAccount: string;
     @Column
-    billingType: BillingType;
+    billingType: string;
     @Column
     billingDetailsMisc: string;
 }

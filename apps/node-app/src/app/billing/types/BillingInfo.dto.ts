@@ -10,7 +10,7 @@ export class CreateBillingInfo {
 
     @ApiProperty()
     @IsEnum(BillingType)
-    billingType: BillingType;
+    billingType: string;
 
     @ApiProperty()
     @IsString()
@@ -25,7 +25,7 @@ export class UpdateBillingInfo {
 
     @ApiProperty()
     @IsEnum(BillingType)
-    billingType: BillingType;
+    billingType: string;
 
     @ApiProperty()
     @IsString()
