@@ -18,8 +18,10 @@ export class BillingService {
       }
     });
   }
-  createBillingInformation(accountUuid: string, createBillingInfo: CreateBillingInfo): Promise<BillingInfo> {
-    return this.billingModel.create({createBillingInfo});
+  createBillingInformation(createBillingInfo: CreateBillingInfo): Promise<BillingInfo> {
+    return this.billingModel.create({
+      ...createBillingInfo
+    });
   }
 
   async updateBillingInformation(accountUuid: string, updateBillingInfo: UpdateBillingInfo): Promise<BillingInfo> {

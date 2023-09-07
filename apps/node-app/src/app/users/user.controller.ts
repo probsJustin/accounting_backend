@@ -28,7 +28,7 @@ export class UsersController {
     @Param('userUuid') userId: string,
     @Body() createUserDto: CreateUserDto 
     ) {
-    return this.userService.createUser(userId, createUserDto);
+    return this.userService.createUser(createUserDto);
   }
 
   @Put(`/:userUuid`)

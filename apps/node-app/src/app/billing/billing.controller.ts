@@ -28,7 +28,7 @@ export class BillingController {
     @Param('accountUuid') accountUuid: string,
     @Body() createBillingInfo: CreateBillingInfo
     ) {
-    return this.billingService.createBillingInformation(accountUuid, createBillingInfo);
+    return this.billingService.createBillingInformation(createBillingInfo);
   }
 
   @Put(`/:accountUuid`)

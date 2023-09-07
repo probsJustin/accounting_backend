@@ -40,7 +40,7 @@ export class AccountService {
 
   createAccount(createAccount: CreateAccountDto): Promise<Account> {
     return this.accountModel.create({
-      CreateAccountDto
+      ...createAccount
     });
   }
 

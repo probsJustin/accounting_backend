@@ -34,7 +34,7 @@ export class UserService {
       throw new PageNotFoundError(`No User Found...... None updated....`)
     }
   }
-  createUser(userId: string, createUserDto: CreateUserDto): Promise<User> {
+  createUser(createUserDto: CreateUserDto): Promise<User> {
     return this.usersModel.create({ 
       ...createUserDto
     });
