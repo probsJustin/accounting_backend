@@ -19,6 +19,15 @@ export class ActionController {
     return this.actionService.getAccountTransactions(accountUuid);
   }
 
+  @Get(`testExampleDotCom`)
+  @UseInterceptors(LogParamsInterceptor)
+  @ApiOperation({ summary: 'Get Billing Information' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  testExampleRequest() {
+    return this.actionService.testExampleRequest();
+  }
+
   @Post(`${ConstantsService.ACTIONS_BILL_AN_ACCOUNT}/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Bill A Specific Account' })
