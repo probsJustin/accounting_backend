@@ -24,15 +24,27 @@ export class AccountController {
   @Get(`/:accountUuid/users`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Account Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   getAllUsersForAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.getAllUsersForAccount(accountUuid);
   }
 
-  @Post(`/:accountUuid`)
+  @Get(`/:accountUuid/billingInfo`)
+  @UseInterceptors(LogParamsInterceptor)
+  @ApiOperation({ summary: 'Get Account Information' })
+  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  getAllBillingInfoForAccount(@Param('accountUuid') accountUuid: string) {
+    return this.acccountService.getAllBillingInfoForAccount(accountUuid);
+  }
+
+  @Post()
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Create Account Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   createAccount(
@@ -44,6 +56,7 @@ export class AccountController {
   @Put(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Update Account Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   updateAccount(
@@ -56,6 +69,7 @@ export class AccountController {
   @Delete(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Delete Account Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   deleteAccount(@Param('accountUuid') accountUuid: string) {

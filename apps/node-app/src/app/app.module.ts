@@ -17,6 +17,8 @@ import { JobsModule } from './jobs/jobs.module';
 import { AccountModule } from './account/account.module';
 import { UserModule } from './users/user.module';
 import { BillingModule } from './billing/billing.module';
+import { TransactionController } from './transactions/transactions.controller';
+import { TransactionModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -30,12 +32,14 @@ import { BillingModule } from './billing/billing.module';
     AccountModule,
     UserModule,
     BillingModule,
+    TransactionModule,
   ],
   controllers: [ 
     ActionController, 
     UsersController, 
     BillingController, 
-    AccountController
+    AccountController,
+    TransactionController
   ],
   providers: [
     AppService, 

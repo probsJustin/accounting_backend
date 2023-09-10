@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBillingInfo, UpdateBillingInfo } from './types/billingInfo.dto';
 import { BillingInfo } from './types/billingInfo.model';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
@@ -11,14 +11,20 @@ export class BillingService {
     private readonly billingModel: typeof BillingInfo
   ){}
 
-  getBillingInformation(accountUuid: string): Promise<BillingInfo> {
-    return this.billingModel.findOne({
+  async getBillingInformation(accountUuid: string): Promise<BillingInfo> {
+    const billingInfo = await this.billingModel.findOne({
       where: {
         accountUuid
       }
     });
+    if(billingInfo){
+      return billingInfo;
+    }else{
+      throw new NotFoundException(`Could not find an user with that UUID`);
+    }
   }
-  createBillingInformation(createBillingInfo: CreateBillingInfo): Promise<BillingInfo> {
+
+  async createBillingInformation(createBillingInfo: CreateBillingInfo): Promise<BillingInfo> {
     return this.billingModel.create({
       ...createBillingInfo
     });

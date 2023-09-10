@@ -1,10 +1,10 @@
-import { BillingType } from "./billingInfo.type";
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique } from 'sequelize-typescript';
+import { Account } from "../../account/types/account.model";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, BelongsTo, ForeignKey } from 'sequelize-typescript';
 
 
 @Table
 export class BillingInfo extends Model {
-    
+
     @AutoIncrement
     @PrimaryKey
     @Column
@@ -18,4 +18,11 @@ export class BillingInfo extends Model {
 
     @Column
     billingDetailsMisc: string;
+    
+    @ForeignKey(() => Account)
+    @Column(DataType.UUID)
+    accountUuid: string;  // This corresponds to the id of the Account model
+
+    @BelongsTo(() => Account)
+    account: Account;
 }

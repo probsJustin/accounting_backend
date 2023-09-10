@@ -13,6 +13,7 @@ export class ActionController {
   @Get(`${ConstantsService.ACTIONS_GET_TRANSACTIONS}/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   getAccountTransactions(@Param('accountUuid') accountUuid: string) {
@@ -22,6 +23,7 @@ export class ActionController {
   @Get(`testExampleDotCom`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   testExampleRequest() {
@@ -31,6 +33,7 @@ export class ActionController {
   @Post(`${ConstantsService.ACTIONS_BILL_AN_ACCOUNT}/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Bill A Specific Account' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   billAnAccount(
@@ -43,6 +46,7 @@ export class ActionController {
   @Post(`${ConstantsService.ACTIONS_REFUND_AN_ACCOUNT}/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Refund A Specific Account' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   refundAnAccount(

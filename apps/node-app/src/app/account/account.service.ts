@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountDto, UpdateAccountDto } from './types/account.dto';
 import { DatabaseModule } from '../database.module';
 import { Account } from './types/account.model';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users/types/user.model';
+import { BillingInfo } from '../billing/types/billingInfo.model';
 
 @Injectable()
 export class AccountService {
@@ -14,6 +15,23 @@ export class AccountService {
 
   ){}
   
+  getAllBillingInfoForAccount(accountUuid: string): Promise<Account> {
+    return this.accountModel.findOne({
+      where: {
+        accountUuid
+      },
+      include: [
+        {
+          model: BillingInfo,
+          as: 'billingInfo',  // This alias should match what you've defined in your associations (if you've defined any).
+          through: {
+            attributes: [],  // This will exclude the intermediary table's columns in the result. Remove this line if you want to see them.
+          },
+        }
+      ]
+    });
+  }
+
   getAllUsersForAccount(accountUuid: string): Promise<Account> {
     return this.accountModel.findOne({
       where: {
@@ -31,12 +49,17 @@ export class AccountService {
     });
   }
 
-  getAccount(accountUuid: string): Promise<Account> {
-    return this.accountModel.findOne({
+  async getAccount(accountUuid: string): Promise<Account> {
+    const account = await this.accountModel.findOne({
       where:{
         accountUuid
       }
     });
+    if(account){
+      return account;
+    }else{
+      throw new NotFoundException(`Could not find an account with that UUID`);
+    }
   }
   
   async updateAccount(accountUuid: string, updateAccount: UpdateAccountDto): Promise<Account> {

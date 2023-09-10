@@ -19,8 +19,9 @@ export class UsersController {
     return this.userService.getUser(userUuid);
   }
 
-  @Post(`/:userUuid`)
+  @Post()
   @ApiOperation({ summary: 'Create User' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
@@ -32,6 +33,7 @@ export class UsersController {
 
   @Put(`/:userUuid`)
   @ApiOperation({ summary: 'Update User' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
@@ -44,6 +46,7 @@ export class UsersController {
 
   @Delete(`/:userUuid`)
   @ApiOperation({ summary: 'Delete User' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)

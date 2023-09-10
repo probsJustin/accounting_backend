@@ -10,18 +10,20 @@ import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
 export class BillingController {
   constructor(private readonly billingService: BillingService) {}
 
-  @Get(`/:accountUuid`)
+  @Get(`/:billingTableId`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
-  getBillingInformation(@Param('accountUuid') accountUuid: string) {
-    return this.billingService.getBillingInformation(accountUuid);
+  getBillingInformation(@Param('billingTableId') billingTableId: string) {
+    return this.billingService.getBillingInformation(billingTableId);
   }
 
-  @Post(`/:accountUuid`)
+  @Post()
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Create Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   createBillingInformation(
@@ -30,24 +32,26 @@ export class BillingController {
     return this.billingService.createBillingInformation(createBillingInfo);
   }
 
-  @Put(`/:accountUuid`)
+  @Put(`/:billingTableId`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Update Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   updateBillingInformation(
-    @Param('accountUuid') accountUuid: string,
+    @Param('billingTableId') billingTableId: string,
     @Body() updateBillingInfo: UpdateBillingInfo
     ) {
-    return this.billingService.updateBillingInformation(accountUuid, updateBillingInfo);
+    return this.billingService.updateBillingInformation(billingTableId, updateBillingInfo);
   }
 
-  @Delete(`/:accountUuid`)
+  @Delete(`/:billingTableId`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Delete Billing Information' })
+  @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
-  deleteBillingInformation(@Param('accountUuid') accountUuid: string) {
-    return this.billingService.deleteBillingInformation(accountUuid);
+  deleteBillingInformation(@Param('billingTableId') billingTableId: string) {
+    return this.billingService.deleteBillingInformation(billingTableId);
   }
 }

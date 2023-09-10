@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsNumber, IsOptional, IsString } from "class-validator";
 import { User } from "../../users/types/user.type";
 import { ApiProperty } from "@nestjs/swagger";
 import { ConstantsService } from "../../util/constants/constants.service";
@@ -10,6 +10,12 @@ export class CreateAccountDto {
         example: ConstantsService.EXAMPLES.EMAIL
     })
     emergencyContact: string;
+
+    @IsNumber()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.DOLLAR_AMMOUNT
+    })
+    balance: number;
 
     @IsString()
     @ApiProperty({
@@ -42,6 +48,11 @@ export class UpdateAccountDto {
     })
     emergencyContact: string;
 
+    @IsNumber()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.DOLLAR_AMMOUNT
+    })
+    balance: number;
 
     @IsString()
     @ApiProperty({

@@ -15,6 +15,7 @@ export class ConstantsService {
     static BILLING_URI = '/billing'
     static USER_URI = '/user'
     static ACTIONS_URI = '/actions'
+    static TRANSACTION_URI = '/transactions'
 
     static ACTIONS_REFUND_AN_ACCOUNT = '/refund';
     static ACTIONS_BILL_AN_ACCOUNT = '/bill';
@@ -29,5 +30,7 @@ export class ConstantsService {
         LAST_NAME: 'Kool-Aid',
         DESCRIPTION: 'Example description here.',
         ACCOUNT_NAME: 'Pane Relief Glassworks',
+        DOLLAR_AMMOUNT: 12.20,
+        DATE: '2023-09-10T02:42:52Z',
     }
 }

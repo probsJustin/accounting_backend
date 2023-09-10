@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './types/user.model';
 import { CreateUserDto, UpdateUserDto } from './types/user.dto';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
@@ -16,13 +16,19 @@ export class UserService {
     private readonly accountModel: typeof Account
   ){}
 
-  getUser(userUuid: string): Promise<User> {
-    return this.usersModel.findOne({
+  async getUser(userUuid: string): Promise<User> {
+    const user = await this.usersModel.findOne({
       where: {
         userUuid
       }
     });
+    if(user){
+      return user;
+    }else{
+      throw new NotFoundException(`Could not find an user with that UUID`);
+    }
   }
+  
   async updateUser(userUuid: string, updateUserDto: UpdateUserDto ): Promise<User> {
     let updatedUser;
     const rowCount = await this.usersModel.update(updateUserDto, {
