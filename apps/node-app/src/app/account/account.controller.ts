@@ -30,6 +30,15 @@ export class AccountController {
   getAllUsersForAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.getAllUsersForAccount(accountUuid);
   }
+  @Get(`/:accountUuid/transactions`)
+  @UseInterceptors(LogParamsInterceptor)
+  @ApiOperation({ summary: 'Get Transactions Information' })
+  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  getAllTransactionsForAccount(@Param('accountUuid') accountUuid: string) {
+    return this.acccountService.getAllTransactionsForAccount(accountUuid);
+  }
 
   @Get(`/:accountUuid/billingInfo`)
   @UseInterceptors(LogParamsInterceptor)

@@ -6,6 +6,7 @@ import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users/types/user.model';
 import { BillingInfo } from '../billing/types/billingInfo.model';
+import { Transaction } from '../transactions/types/transactions.module';
 
 @Injectable()
 export class AccountService {
@@ -14,6 +15,23 @@ export class AccountService {
     private readonly accountModel: typeof Account
 
   ){}
+
+  getAllTransactionsForAccount(accountUuid: string): Promise<Account> {
+    return this.accountModel.findOne({
+      where: {
+        accountUuid
+      },
+      include: [
+        {
+          model: Transaction,
+          as: 'transactions',  // This alias should match what you've defined in your associations (if you've defined any).
+          through: {
+            attributes: [],  // This will exclude the intermediary table's columns in the result. Remove this line if you want to see them.
+          },
+        }
+      ]
+    });
+  }
   
   getAllBillingInfoForAccount(accountUuid: string): Promise<Account> {
     return this.accountModel.findOne({
