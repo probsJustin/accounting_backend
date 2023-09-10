@@ -1,82 +1,68 @@
 import { IsEmail, IsOptional, IsString } from "class-validator";
-import User from "../../users/types/user.type";
+import { User } from "../../users/types/user.type";
 import { ApiProperty } from "@nestjs/swagger";
+import { ConstantsService } from "../../util/constants/constants.service";
 
 
 export class CreateAccountDto {
     @IsEmail()
-    @ApiProperty()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.EMAIL
+    })
     emergencyContact: string;
 
     @IsString()
-    @ApiProperty()
-    accountUuid: string;
-
-    @IsString()
-    @ApiProperty()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.ACCOUNT_NAME
+    })
     accountName: string;
     
-    @ApiProperty()
-    billingHistory: string;
+    @ApiProperty({
+        example: 12
+    })
+    billingInfoId: string;
     
-    @ApiProperty()
-    billingInfo: string;
-    
-    @ApiProperty()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.EMAIL
+    })
     @IsEmail()
     initEmail: string;
 
-    @ApiProperty()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.DESCRIPTION
+    })
     @IsString()
     description: string;
-
-    @ApiProperty()
-    admins: string;
-
-    @ApiProperty()
-    users: string;
 }
 
 export class UpdateAccountDto {
-    
-    @ApiProperty()
-    @IsOptional()
     @IsEmail()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.EMAIL
+    })
     emergencyContact: string;
 
-    @ApiProperty()
-    @IsOptional()
-    @IsString()
-    accountUuid: string;
 
-    @ApiProperty()
-    @IsOptional()
     @IsString()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.ACCOUNT_NAME
+    })
     accountName: string;
-
-    @ApiProperty()
-    @IsOptional()
-    billingHistory: string;
     
-    @ApiProperty()
-    @IsOptional()
-    billingInfo: string;
+    @ApiProperty({
+        example: 12
+    })
+    billingInfoId: string;
     
-    @ApiProperty()
-    @IsOptional()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.EMAIL
+    })
     @IsEmail()
     initEmail: string;
 
-    @ApiProperty()
-    @IsOptional()
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.DESCRIPTION
+    })
     @IsString()
     description: string;
-
-    @ApiProperty()
-    @IsOptional()
-    admins: string;
-    
-    @ApiProperty()
-    @IsOptional()
-    users: string;
 }

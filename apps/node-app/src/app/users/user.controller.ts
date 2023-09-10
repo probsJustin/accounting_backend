@@ -15,8 +15,8 @@ export class UsersController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
-  getUser(@Param('userUuid') userId: string) {
-    return this.userService.getUser(userId);
+  getUser(@Param('userUuid') userUuid: string) {
+    return this.userService.getUser(userUuid);
   }
 
   @Post(`/:userUuid`)
@@ -25,7 +25,6 @@ export class UsersController {
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
   createUser(
-    @Param('userUuid') userId: string,
     @Body() createUserDto: CreateUserDto 
     ) {
     return this.userService.createUser(createUserDto);
@@ -37,10 +36,10 @@ export class UsersController {
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
   updateUser(
-    @Param('userUuid') userId: string,
+    @Param('userUuid') userUuid: string,
     @Body() updateUserDto: UpdateUserDto
     ) {
-    return this.userService.updateUser(userId, updateUserDto);
+    return this.userService.updateUser(userUuid, updateUserDto);
   }
 
   @Delete(`/:userUuid`)
@@ -48,7 +47,7 @@ export class UsersController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @UseInterceptors(LogParamsInterceptor)
-  deleteUser(@Param('userUuid') userId: string) {
-    return this.userService.deleteUser(userId);
+  deleteUser(@Param('userUuid') userUuid: string) {
+    return this.userService.deleteUser(userUuid);
   }
 }

@@ -1,71 +1,94 @@
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail, IsOptional } from 'class-validator';
-import { User } from './users.model';
+import { IsString, IsEmail, IsOptional, IsUUID } from 'class-validator';
+import { User } from './user.model';
+import { Account } from '../../account/types/account.type';
+import { ConstantsService } from '../../util/constants/constants.service';
 
 export class CreateUserDto {
   constructor(){ }
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.USER_NAME
+  })
   @IsString()
   username: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.FIRST_NAME
+  })
   @IsString()
   firstname: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.LAST_NAME
+  })
   @IsString()
   lastname: string;
 
-  @ApiProperty()
-  @IsString()
-  userUuid: string;
-
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.EMAIL
+  })
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.EMAIL
+  })
   @IsString()
   description: string;
 
-
+  @ApiProperty({
+    type: 'array',
+    items: { type: 'string', format: 'uuid' },
+    description: 'List of account UUIDs to associate with the user',
+    example: [ConstantsService.EXAMPLES.UUID, ConstantsService.EXAMPLES.UUID],
+  })
+  @IsUUID(4, { each: true }) // Validate UUID v4 format for each item in the array
+  accounts: string[];
 }
 
 
 export class UpdateUserDto {
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.USER_NAME
+  })
   @IsString()
-  @IsOptional()
   username: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.FIRST_NAME
+  })
   @IsString()
-  @IsOptional()
   firstname: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.LAST_NAME
+  })
   @IsString()
-  @IsOptional()
   lastname: string;
 
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  userUuid: string;
-
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.EMAIL
+  })
   @IsEmail()
-  @IsOptional()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.EMAIL
+  })
   @IsString()
-  @IsOptional()
   description: string;
 
-  // Add any other fields as necessary
+  @ApiProperty({
+    type: 'array',
+    items: { type: 'string', format: 'uuid' },
+    description: 'List of account UUIDs to associate with the user',
+    example: [ConstantsService.EXAMPLES.UUID, ConstantsService.EXAMPLES.UUID],
+  })
+  @IsUUID(4, { each: true }) // Validate UUID v4 format for each item in the array
+  accounts: string[];
+
 }
 

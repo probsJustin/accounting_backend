@@ -21,6 +21,15 @@ export class AccountController {
     return this.acccountService.getAccount(accountUuid);
   }
 
+  @Get(`/:accountUuid/users`)
+  @UseInterceptors(LogParamsInterceptor)
+  @ApiOperation({ summary: 'Get Account Information' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  getAllUsersForAccount(@Param('accountUuid') accountUuid: string) {
+    return this.acccountService.getAllUsersForAccount(accountUuid);
+  }
+
   @Post(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Create Account Information' })

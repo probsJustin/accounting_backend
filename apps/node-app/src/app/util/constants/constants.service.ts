@@ -19,4 +19,15 @@ export class ConstantsService {
     static ACTIONS_REFUND_AN_ACCOUNT = '/refund';
     static ACTIONS_BILL_AN_ACCOUNT = '/bill';
     static ACTIONS_GET_TRANSACTIONS = '/transactions';
+
+
+    static EXAMPLES = {
+        UUID: 'ec9a605d-68fe-469e-bd60-7bd4146fbdf6',
+        EMAIL: 'koolaidmane@pane_relief_glassworks.com',
+        USER_NAME: 'koolaidmane',
+        FIRST_NAME: 'Frankie D.',
+        LAST_NAME: 'Kool-Aid',
+        DESCRIPTION: 'Example description here.',
+        ACCOUNT_NAME: 'Pane Relief Glassworks',
+    }
 }

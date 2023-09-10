@@ -25,7 +25,6 @@ export class BillingController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   createBillingInformation(
-    @Param('accountUuid') accountUuid: string,
     @Body() createBillingInfo: CreateBillingInfo
     ) {
     return this.billingService.createBillingInformation(createBillingInfo);

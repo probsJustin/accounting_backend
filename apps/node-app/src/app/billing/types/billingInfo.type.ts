@@ -1,13 +1,14 @@
 
 
 export enum BillingType {
-    visa,
-    paypal,
-    bitcoin
+    VISA,
+    PAYPAL,
+    BITCOIN,
+    STRIPE
 }
 
-export default interface BillingInfo {
-    billingAccount: string,
-    billingType: string,
-    billingDetailsMisc: string,
+export class BillingInfo {
+    billingAccount: string;
+    billingType: string;
+    billingDetailsMisc: string;
 }

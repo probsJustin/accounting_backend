@@ -18,7 +18,7 @@ export class CreateBillingInfo {
 }
 
 export class UpdateBillingInfo {
-    
+
     @IsString()
     @ApiProperty()
     billingAccount: string;

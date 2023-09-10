@@ -4,8 +4,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from './config.module';
 import { ConfigService } from '@nestjs/config';
 import { Account } from './account/types/account.model';
-import { User } from './users/types/users.model';
+import { User } from './users/types/user.model';
 import { BillingInfo } from './billing/types/billingInfo.model';
+import { UserAccount } from './users/types/userAccount.model';
 
 @Global()
 @Module({
@@ -21,7 +22,7 @@ import { BillingInfo } from './billing/types/billingInfo.model';
         database: 'example',
         autoLoadModels: true,
         synchronize: true,
-        models: [Account, User, BillingInfo], // Ensure Account model is here
+        models: [Account, User, BillingInfo, UserAccount], // Ensure Account model is here
       }),
       inject: [ConfigService], // Inject the ConfigService to be used in the useFactory function
     }),
