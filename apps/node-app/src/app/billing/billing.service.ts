@@ -11,10 +11,10 @@ export class BillingService {
     private readonly billingModel: typeof BillingInfo
   ){}
 
-  async getBillingInformation(accountUuid: string): Promise<BillingInfo> {
+  async getBillingInformation(billingTableId: string): Promise<BillingInfo> {
     const billingInfo = await this.billingModel.findOne({
       where: {
-        accountUuid
+        id: billingTableId
       }
     });
     if(billingInfo){
@@ -30,16 +30,17 @@ export class BillingService {
     });
   }
 
-  async updateBillingInformation(accountUuid: string, updateBillingInfo: UpdateBillingInfo): Promise<BillingInfo> {
+  async updateBillingInformation(billingTableId: string, updateBillingInfo: UpdateBillingInfo): Promise<BillingInfo> {
     const rowCount = await this.billingModel.update(updateBillingInfo, {
       where:{
-        accountUuid
+        id: billingTableId
+
       }
     })
     if(rowCount?.length > 0){
       return this.billingModel.findOne({
         where: {
-          accountUuid
+          id: billingTableId
         }
       });
     }else{
@@ -47,10 +48,10 @@ export class BillingService {
     }
   }
 
-  deleteBillingInformation(accountUuid: string): Promise<number> {
+  deleteBillingInformation(billingTableId: string): Promise<number> {
     return this.billingModel.destroy({
       where:{
-        accountUuid 
+        id: billingTableId 
       }
     });
   }

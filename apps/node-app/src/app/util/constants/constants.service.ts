@@ -32,5 +32,6 @@ export class ConstantsService {
         ACCOUNT_NAME: 'Pane Relief Glassworks',
         DOLLAR_AMMOUNT: 12.20,
         DATE: '2023-09-10T02:42:52Z',
+        BILLING_TYPE: 'VISA'
     }
 }

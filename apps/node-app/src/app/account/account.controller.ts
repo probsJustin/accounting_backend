@@ -30,6 +30,7 @@ export class AccountController {
   getAllUsersForAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.getAllUsersForAccount(accountUuid);
   }
+
   @Get(`/:accountUuid/transactions`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Get Transactions Information' })
@@ -48,6 +49,16 @@ export class AccountController {
   @ApiResponse({ status: 404, description: 'Not Found.' })
   getAllBillingInfoForAccount(@Param('accountUuid') accountUuid: string) {
     return this.acccountService.getAllBillingInfoForAccount(accountUuid);
+  }
+
+  @Get(`/:accountUuid/all`)
+  @UseInterceptors(LogParamsInterceptor)
+  @ApiOperation({ summary: 'Get All Information for an Account' })
+  @ApiResponse({ status: 200 })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  getAllInformationForAccount(@Param('accountUuid') accountUuid: string) {
+    return this.acccountService.getAllInformationForAccount(accountUuid);
   }
 
   @Post()

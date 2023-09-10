@@ -6,7 +6,7 @@ import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users/types/user.model';
 import { BillingInfo } from '../billing/types/billingInfo.model';
-import { Transaction } from '../transactions/types/transactions.module';
+import { Transaction } from '../transactions/types/transactions.model';
 
 @Injectable()
 export class AccountService {
@@ -24,10 +24,29 @@ export class AccountService {
       include: [
         {
           model: Transaction,
-          as: 'transactions',  // This alias should match what you've defined in your associations (if you've defined any).
-          through: {
-            attributes: [],  // This will exclude the intermediary table's columns in the result. Remove this line if you want to see them.
-          },
+          as: 'transaction',  // This alias should match what you've defined in your associations (if you've defined any).
+        },
+      ]
+    });
+  }
+
+  getAllInformationForAccount(accountUuid: string): Promise<Account> {
+    return this.accountModel.findOne({
+      where: {
+        accountUuid
+      },
+      include: [
+        {
+          model: Transaction,
+          as: 'transaction',  // This alias should match what you've defined in your associations (if you've defined any).
+        },
+        {
+          model: BillingInfo,
+          as: 'billingInfo',  // This alias should match what you've defined in your associations (if you've defined any).
+        },
+        {
+          model: User,
+          as: 'users',  // This alias should match what you've defined in your associations (if you've defined any).
         }
       ]
     });
@@ -42,9 +61,6 @@ export class AccountService {
         {
           model: BillingInfo,
           as: 'billingInfo',  // This alias should match what you've defined in your associations (if you've defined any).
-          through: {
-            attributes: [],  // This will exclude the intermediary table's columns in the result. Remove this line if you want to see them.
-          },
         }
       ]
     });
@@ -59,9 +75,6 @@ export class AccountService {
         {
           model: User,
           as: 'users',  // This alias should match what you've defined in your associations (if you've defined any).
-          through: {
-            attributes: [],  // This will exclude the intermediary table's columns in the result. Remove this line if you want to see them.
-          },
         }
       ]
     });

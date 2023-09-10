@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsEmail, IsNumber, IsOptional, IsString } from "class-validator";
 import { User } from "../../users/types/user.type";
 import { ApiProperty } from "@nestjs/swagger";
 import { ConstantsService } from "../../util/constants/constants.service";
@@ -7,7 +7,7 @@ import { Account } from "../../account/types/account.model";
 
 
 export class CreateTransactionDto {
-    @IsString()
+    @IsNumber()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.DOLLAR_AMMOUNT
     })
@@ -33,7 +33,7 @@ export class CreateTransactionDto {
 }
 
 export class UpdateTransactionDto {
-    @IsString()
+    @IsNumber()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.DOLLAR_AMMOUNT
     })

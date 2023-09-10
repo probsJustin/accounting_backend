@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
-import { Transaction } from './types/transactions.module';
+import { Transaction } from './types/transactions.model';
 import { CreateTransactionDto, UpdateTransactionDto } from './types/transactions.dto';
 
 @Injectable()

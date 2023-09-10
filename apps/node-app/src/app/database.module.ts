@@ -7,7 +7,7 @@ import { Account } from './account/types/account.model';
 import { User } from './users/types/user.model';
 import { BillingInfo } from './billing/types/billingInfo.model';
 import { UserAccount } from './users/types/userAccount.model';
-import { Transaction } from './transactions/types/transactions.module';
+import { Transaction } from './transactions/types/transactions.model';
 
 @Global()
 @Module({

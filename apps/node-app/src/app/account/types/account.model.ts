@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../users/types/user.model';
 import { UserAccount } from '../../users/types/userAccount.model';
 import { BillingInfo } from '../../billing/types/billingInfo.model';
+import { Transaction } from '../../transactions/types/transactions.model';
 
 
 @Table
@@ -43,8 +44,11 @@ export class Account extends Model{
     @BelongsToMany(() => User, () => UserAccount)
     users: User[];
 
-    @HasMany(() => BillingInfo, 'accountId')
+    @HasMany(() => BillingInfo, 'accountUuid')
     billingInfo: BillingInfo[];
+
+    @HasMany(() => Transaction, 'accountUuid')
+    transaction: Transaction[]; 
 
 }
 

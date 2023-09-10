@@ -21,8 +21,8 @@ export class BillingInfo extends Model {
     
     @ForeignKey(() => Account)
     @Column(DataType.UUID)
-    accountUuid: string;  // This corresponds to the id of the Account model
-
+    accountUuid: string;
+    
     @BelongsTo(() => Account)
     account: Account;
 }
