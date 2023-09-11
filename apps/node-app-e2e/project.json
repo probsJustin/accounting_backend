@@ -2,7 +2,7 @@
   "name": "node-app-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": [
-    "node-app"
+    "account_backend"
   ],
   "targets": {
     "e2e": {

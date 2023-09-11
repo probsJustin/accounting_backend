@@ -23,8 +23,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../apps/org/.next/types/**/*.ts",
-    "../../dist/apps/org/.next/types/**/*.ts",
+    ".next/types/**/*.ts",
+    "../../dist/apps/account_frontend/.next/types/**/*.ts",
     "next-env.d.ts"
   ],
   "exclude": [

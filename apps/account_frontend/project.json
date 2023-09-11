@@ -1,7 +1,7 @@
 {
-  "name": "org",
+  "name": "account_frontend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/org",
+  "sourceRoot": "apps/account_frontend",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,11 +9,11 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/org"
+        "outputPath": "dist/apps/account_frontend"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/org"
+          "outputPath": "apps/account_frontend"
         },
         "production": {}
       }
@@ -22,16 +22,16 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "org:build",
+        "buildTarget": "account_frontend:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "org:build:development",
+          "buildTarget": "account_frontend:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "org:build:production",
+          "buildTarget": "account_frontend:build:production",
           "dev": false
         }
       }
@@ -39,14 +39,14 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "org:build:production"
+        "buildTarget": "account_frontend:build:production"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/org/jest.config.ts",
+        "jestConfig": "apps/account_frontend/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -60,7 +60,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/org/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/account_frontend/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

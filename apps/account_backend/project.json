@@ -1,7 +1,7 @@
 {
-  "name": "node-app",
+  "name": "account-backend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/node-app/src",
+  "sourceRoot": "apps/account_backend/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -13,14 +13,14 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/node-app",
-        "main": "apps/node-app/src/main.ts",
-        "tsConfig": "apps/node-app/tsconfig.app.json",
+        "outputPath": "dist/apps/account_backend",
+        "main": "apps/account_backend/src/main.ts",
+        "tsConfig": "apps/account_backend/tsconfig.app.json",
         "assets": [
-          "apps/node-app/src/assets"
+          "apps/account_backend/src/assets"
         ],
         "isolatedConfig": true,
-        "webpackConfig": "apps/node-app/webpack.config.js"
+        "webpackConfig": "apps/account_backend/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -31,14 +31,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "node-app:build"
+        "buildTarget": "account_backend:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "node-app:build:development"
+          "buildTarget": "account_backend:build:development"
         },
         "production": {
-          "buildTarget": "node-app:build:production"
+          "buildTarget": "account_backend:build:production"
         }
       }
     },
@@ -49,7 +49,7 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "apps/node-app/**/*.ts"
+          "apps/account_backend/**/*.ts"
         ]
       }
     },
@@ -59,7 +59,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "apps/node-app/jest.config.ts",
+        "jestConfig": "apps/account_backend/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
