@@ -14,10 +14,10 @@ export class TransactionService {
   
   
 
-  async getTransaction(accountUuid: string): Promise<Transaction> {
+  async getTransaction(transactionId: string): Promise<Transaction> {
     const transaction = await this.transactionModel.findOne({
       where:{
-        accountUuid
+        id: transactionId
       }
     });
     if(transaction){
@@ -27,16 +27,16 @@ export class TransactionService {
     }
   }
   
-  async updateTransaction(accountUuid: string, udateTransactionDto: UpdateTransactionDto): Promise<Transaction> {
+  async updateTransaction(transactionId: string, udateTransactionDto: UpdateTransactionDto): Promise<Transaction> {
     const rowCount = await this.transactionModel.update(udateTransactionDto, {
       where: {
-        accountUuid
+        id: transactionId
       }
     });
     if(rowCount?.length > 0){
       return this.transactionModel.findOne({
         where:{
-          accountUuid
+          id: transactionId
         }
       });
     }else{
@@ -50,10 +50,10 @@ export class TransactionService {
     });
   }
 
-  deleteTransaction(accountUuid: string): Promise<number> {
+  deleteTransaction(transactionId: string): Promise<number> {
     return this.transactionModel.destroy({
       where: {
-        accountUuid
+        id: transactionId
       }
     });  
   }

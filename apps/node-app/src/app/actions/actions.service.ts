@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BillingInfo } from '../billing/types/billingInfo.type';
+import { BillingInfo } from '../billing/types/billingInfo.model';
 import { BillAnAccountDto, RefundAnAccountDto } from './types/actions.dto';
 import { ProxyService } from '../util/proxyService/proxy.service';
 

@@ -9,11 +9,6 @@ import { Transaction } from '../../transactions/types/transactions.model';
 @Table
 export class Account extends Model{
 
-    @AutoIncrement
-    @PrimaryKey
-    @Column
-    id: number;
-
     @Column
     emergencyContact: string;
     

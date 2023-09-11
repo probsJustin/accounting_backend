@@ -1,5 +1,5 @@
 import { IsEmail, IsNumber, IsOptional, IsString } from "class-validator";
-import { User } from "../../users/types/user.type";
+import { User } from "../../users/types/user.model";
 import { ApiProperty } from "@nestjs/swagger";
 import { ConstantsService } from "../../util/constants/constants.service";
 

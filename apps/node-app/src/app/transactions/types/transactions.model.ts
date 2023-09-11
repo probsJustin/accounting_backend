@@ -4,6 +4,7 @@ import { User } from '../../users/types/user.model';
 import { UserAccount } from '../../users/types/userAccount.model';
 import { BillingInfo } from '../../billing/types/billingInfo.model';
 import { Account } from '../../account/types/account.model';
+import { IsDateString, IsString } from 'class-validator';
 
 
 @Table
@@ -20,6 +21,15 @@ export class Transaction extends Model{
     @Column
     type: string;
     
+    @IsDateString()
+    @Column
+    initDate: Date;
+
+    @IsString()
+    @Column
+    initEmail: string;
+
+    @IsUUID(4)
     @ForeignKey(() => Account)
     @Column(DataType.UUID)
     accountUuid: string;

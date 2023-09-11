@@ -1,5 +1,5 @@
 import { IsDateString, IsEmail, IsNumber, IsOptional, IsString } from "class-validator";
-import { User } from "../../users/types/user.type";
+import { User } from "../../users/types/user.model";
 import { ApiProperty } from "@nestjs/swagger";
 import { ConstantsService } from "../../util/constants/constants.service";
 import { BelongsTo, Column, DataType, ForeignKey, IsDate } from "sequelize-typescript";
@@ -13,11 +13,16 @@ export class CreateTransactionDto {
     })
     amount: number;
 
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.BILLING_TYPE
+    })
+    type: string;
+
     @IsDateString()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.DATE
     })
-    date: Date;
+    initDate: Date;
 
     @IsEmail()
     @ApiProperty({
@@ -25,7 +30,6 @@ export class CreateTransactionDto {
     })
     initEmail: string;
 
-    @IsEmail()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.UUID
     })
@@ -39,11 +43,16 @@ export class UpdateTransactionDto {
     })
     amount: number;
 
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.BILLING_TYPE
+    })
+    type: string;
+
     @IsDateString()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.DATE
     })
-    date: Date;
+    initDate: Date;
 
     @IsEmail()
     @ApiProperty({
@@ -51,10 +60,8 @@ export class UpdateTransactionDto {
     })
     initEmail: string;
 
-    @IsEmail()
     @ApiProperty({
         example: ConstantsService.EXAMPLES.UUID
     })
-    accountUuid: string; 
-
+    accountUuid: string;  
 }

@@ -1,5 +1,5 @@
 import { Account } from "../../account/types/account.model";
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, BelongsTo, ForeignKey, IsUUID } from 'sequelize-typescript';
 
 
 @Table
@@ -19,6 +19,7 @@ export class BillingInfo extends Model {
     @Column
     billingDetailsMisc: string;
     
+    @IsUUID(4)
     @ForeignKey(() => Account)
     @Column(DataType.UUID)
     accountUuid: string;

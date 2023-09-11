@@ -2,7 +2,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEmail, IsOptional, IsUUID } from 'class-validator';
 import { User } from './user.model';
-import { Account } from '../../account/types/account.type';
+import { Account } from '../../account/types/account.model';
 import { ConstantsService } from '../../util/constants/constants.service';
 
 export class CreateUserDto {
