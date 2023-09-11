@@ -1,2 +1,113 @@
+
+
 .page {
+    flex-grow: 1; /* It grows to take up available space after the header */
+    display: flex;
+    flex-direction: column;
+    /* other properties remain unchanged or can be added if needed */
 }
+
+.page, .singleCard, .fullCard, .header, .wrapper {
+    box-sizing: border-box;
+}
+
+.menuCard {
+    border-color: black;
+    border-width: 5px;
+    border-radius: 25px;
+    width: 200px;
+    height: 100%;
+    position: static; 
+    background-color: var(--bg3);   /* A dark background color */
+    overflow:hidden;
+}
+
+.pageCard {
+    flex-grow: 1;
+    border-color: black;
+    border-width: 5px;
+    border-radius: 25px;
+    padding: 5px;
+    margin-left: 5px;
+    height: 100%;
+    position: static; 
+    background-color: var(--bg1);   /* A dark background color */
+    font-family: 'mainLight', fallbackFont, sans-serif;
+
+}
+
+.fullCard {
+    display: flex;
+    flex-direction: column;
+    border-color: black;
+    border-width: 5px;
+    border-radius: 25px;
+    padding: 5px;
+    margin: 2.5%;
+    width: 95%;
+    height: 90%;
+    position: absolute; 
+    background-color: var(--bg4);   /* A dark background color */
+
+}
+
+.header {
+    flex-shrink: 0; /* Don't allow the header to shrink */
+    border-color: black;
+    border-width: 5px;
+    border-radius: 25px;
+    height: 10%;
+    margin: 20px;
+    padding: 5px;
+    background-color: var(--bg1);   /* A dark background color */
+
+}
+
+.h1 {
+
+    font-family: 'mainHeavy', fallbackFont, sans-serif;
+    font-size:2vw;
+}
+
+
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1; /* Allow the wrapper to grow and fill remaining space */
+    overflow: auto;
+    border-color: black;
+    border-width: 5px;
+    border-radius: 25px;
+    height: 100%;
+    margin: 20px;
+    padding: 5px;
+    position: relative;
+    background-color: var(--bg2);   /* A dark background color */
+
+}
+
+
+.menuButton {
+    display: block;       /* To ensure each button is on a new line */
+    width: 100%;          /* Fills the width of the parent container */
+    padding: 10px;        /* Some padding for visual comfort */
+    margin: 5px 0;        /* Adds space between buttons */
+    border: none;         /* Removes the default border */
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg3);   /* A dark background color */
+    color: #fff;          /* White text color */
+    cursor: pointer;      /* Hand cursor on hover */
+    text-align: center;   /* Centered text */
+    transition: background-color 0.3s;   /* Smooth transition for hover effect */
+    font-family: 'mainMedium', fallbackFont, sans-serif;
+
+}
+
+.menuButton:hover {
+    background-color: #555;  /* Slightly lighter color on hover */
+}
+
+
+
+

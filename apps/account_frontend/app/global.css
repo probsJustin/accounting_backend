@@ -1,3 +1,35 @@
+
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --bg1: #5585b5; 
+  --bg2: #53a8b6; 
+  --bg3: #79c2d0; 
+  --bg4: #bbe4e9; 
+  
+}
+
+@font-face {
+  font-family: 'mainLight'; /* A name to be used later to reference this font */
+  src: url('../fonts/Montserrat-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mainMedium'; /* A name to be used later to reference this font */
+  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mainHeavy'; /* A name to be used later to reference this font */
+  src: url('../fonts/Montserrat-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -7,10 +39,13 @@ html {
   tab-size: 4;
   scroll-behavior: smooth;
 }
+
 body {
   font-family: inherit;
   line-height: inherit;
   margin: 0;
+  background-color: var(--bg2);   /* A dark background color */
+
 }
 h1,
 h2,
