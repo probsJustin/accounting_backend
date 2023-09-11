@@ -1,9 +1,7 @@
 {
   "name": "node-app-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": [
-    "account_backend"
-  ],
+  "implicitDependencies": [],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
