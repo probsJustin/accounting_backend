@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Put, Delete, Param, Body, UseInterceptors } from '@nestjs/common';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ActionService } from './actions.service';
 import { BillAnAccountDto, RefundAnAccountDto } from './types/actions.dto';
 import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
+import { JwtAuthGuard } from '../auth/strategies/jwt-auth.guard';
 
 @ApiTags('Actions')
+@UseGuards(JwtAuthGuard)
 @Controller(`${ConstantsService.ACTIONS_URI}`)
 export class ActionController {
   constructor(private readonly actionService: ActionService) {}

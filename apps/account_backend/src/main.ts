@@ -15,7 +15,7 @@ async function bootstrap() {
   .setTitle('Accounting Backend')
   .setDescription('Accounting Backend to Bill and Keep Track of Various Things....Accounting Related')
   .setVersion('1.0')
-  // Optionally add more configuration like .addBearerAuth()
+  .addBearerAuth() // This line is important for JWT!
   .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

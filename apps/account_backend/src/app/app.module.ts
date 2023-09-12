@@ -19,6 +19,8 @@ import { UserModule } from './users/user.module';
 import { BillingModule } from './billing/billing.module';
 import { TransactionController } from './transactions/transactions.controller';
 import { TransactionModule } from './transactions/transactions.module';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { TransactionModule } from './transactions/transactions.module';
     UserModule,
     BillingModule,
     TransactionModule,
+    JwtModule
   ],
   controllers: [ 
     ActionController, 
@@ -46,6 +49,8 @@ import { TransactionModule } from './transactions/transactions.module';
     ProxyService, 
     ConstantsService, 
     ActionService,
+    AuthService,
+    
   ],
 })
 export class AppModule {}

@@ -1,11 +1,11 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
 import { User } from './types/user.model';
 import { CreateUserDto, UpdateUserDto } from './types/user.dto';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
 import { Account } from '../account/types/account.model';
 import { Op } from 'sequelize';
-import { AuthService } from '../auth/types/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 
 @Injectable()
@@ -15,9 +15,22 @@ export class UserService {
     private readonly usersModel: typeof User,
     @InjectModel(Account) 
     private readonly accountModel: typeof Account,
-    private readonly authService: AuthService 
+    @Inject(forwardRef(() => AuthService)) private authService: AuthService,
     
   ){}
+
+  async findOneByUsername(username: string){
+    const user = await this.usersModel.findOne({
+      where: {
+        username
+      }
+    });
+    if(user){
+      return user;
+    }else{
+      throw new NotFoundException(`Could not find an user with that UUID`);
+    }
+  }
 
   async getUser(userUuid: string): Promise<User> {
     const user = await this.usersModel.findOne({
