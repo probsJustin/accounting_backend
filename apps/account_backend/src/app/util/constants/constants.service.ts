@@ -26,6 +26,7 @@ export class ConstantsService {
         UUID: 'ec9a605d-68fe-469e-bd60-7bd4146fbdf6',
         EMAIL: 'koolaidmane@pane_relief_glassworks.com',
         USER_NAME: 'koolaidmane',
+        PASSWORD: 'koolaidjammers01',
         FIRST_NAME: 'Frankie D.',
         LAST_NAME: 'Kool-Aid',
         DESCRIPTION: 'Example description here.',

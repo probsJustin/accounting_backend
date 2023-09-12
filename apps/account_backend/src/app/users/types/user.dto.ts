@@ -33,6 +33,11 @@ export class CreateUserDto {
   email: string;
 
   @ApiProperty({
+    example: ConstantsService.EXAMPLES.PASSWORD
+  })
+  password: string;
+
+  @ApiProperty({
     example: ConstantsService.EXAMPLES.EMAIL
   })
   @IsString()
@@ -74,6 +79,11 @@ export class UpdateUserDto {
   })
   @IsEmail()
   email: string;
+
+  @ApiProperty({
+    example: ConstantsService.EXAMPLES.PASSWORD
+  })
+  password: string;
 
   @ApiProperty({
     example: ConstantsService.EXAMPLES.EMAIL

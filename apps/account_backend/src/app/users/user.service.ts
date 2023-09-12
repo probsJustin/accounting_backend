@@ -5,6 +5,7 @@ import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { InjectModel } from '@nestjs/sequelize';
 import { Account } from '../account/types/account.model';
 import { Op } from 'sequelize';
+import { AuthService } from '../auth/types/auth.service';
 
 
 @Injectable()
@@ -13,7 +14,9 @@ export class UserService {
     @InjectModel(User) 
     private readonly usersModel: typeof User,
     @InjectModel(Account) 
-    private readonly accountModel: typeof Account
+    private readonly accountModel: typeof Account,
+    private readonly authService: AuthService 
+    
   ){}
 
   async getUser(userUuid: string): Promise<User> {
@@ -30,6 +33,9 @@ export class UserService {
   }
   
   async updateUser(userUuid: string, updateUserDto: UpdateUserDto ): Promise<User> {
+    if(updateUserDto?.password){
+      updateUserDto.password = await this.authService.hashPassword(updateUserDto.password)
+    }
     let updatedUser;
     const rowCount = await this.usersModel.update(updateUserDto, {
       where: {
@@ -48,7 +54,11 @@ export class UserService {
     const associatedUser = this.associateUserWithAccount(updatedUser.userUuid, updateUserDto.accounts);
     return associatedUser;
   }
+
   async createUser(createUserDto: CreateUserDto): Promise<User> {
+    if(createUserDto?.password){
+      createUserDto.password = await this.authService.hashPassword(createUserDto.password)
+    }
     const createdUser = await this.usersModel.create({ 
       ...createUserDto
     });
