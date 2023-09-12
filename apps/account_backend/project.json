@@ -1,5 +1,5 @@
 {
-  "name": "account-backend",
+  "name": "account_backend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/account_backend/src",
   "projectType": "application",

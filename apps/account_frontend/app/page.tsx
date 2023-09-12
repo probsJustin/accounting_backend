@@ -1,11 +1,7 @@
 import homeStyles from './page.module.css';
+import Link from 'next/link';
 
-export default async function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
-   */
+export default function Index() {
   return (
     <div className={homeStyles.fullCard}>
       <div className={homeStyles.header}>
@@ -14,17 +10,17 @@ export default async function Index() {
       <div className={homeStyles.page}>
         <div className={homeStyles.wrapper}>
           <div className={homeStyles.menuCard}>
-            <button className={homeStyles.menuButton}>Accounts</button>
-            <button className={homeStyles.menuButton}>Actions</button>
-            <button className={homeStyles.menuButton}>Billing Information</button>
-            <button className={homeStyles.menuButton}>Users</button>
-            <button className={homeStyles.menuButton}>Transactions</button>
+            <Link href="/accounts" className={homeStyles.menuButton}>Accounts</Link>
+            <Link href="/actions" className={homeStyles.menuButton}>Actions</Link>
+            <Link href="/billinginfo" className={homeStyles.menuButton}>Billing Information</Link>
+            <Link href="/users" className={homeStyles.menuButton}>Users</Link>
+            <Link href="/transactions" className={homeStyles.menuButton}>Transactions</Link>
           </div>
           <div className={homeStyles.pageCard}>
             testing here.
           </div>    
         </div>
       </div>
-    </div>      
+    </div>
   );
 }
