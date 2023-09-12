@@ -16,19 +16,19 @@
 
 .page_menuCard__WWUT4 {
     border-color: black;
-    border-width: 5px;
+    /*border-width: 1px;*/
     border-radius: 25px;
     width: 200px;
     height: 100%;
     position: static; 
-    background-color: var(--bg3);   /* A dark background color */
+    background-color: var(--bg2);   /* A dark background color */
     overflow:hidden;
 }
 
 .page_pageCard__7ZLp6 {
     flex-grow: 1;
     border-color: black;
-    border-width: 5px;
+    /*border-width: 1px;*/ 
     border-radius: 25px;
     padding: 5px;
     margin-left: 5px;
@@ -37,6 +37,8 @@
     background-color: var(--bg1);   /* A dark background color */
     font-family: 'mainLight', fallbackFont, sans-serif;
     color: black;
+    padding: 1%;
+    padding-left: 1.5%;
 
 }
 
@@ -44,21 +46,21 @@
     display: flex;
     flex-direction: column;
     border-color: black;
-    border-width: 5px;
     border-radius: 25px;
     padding: 5px;
     margin: 2.5%;
     width: 95%;
     height: 90%;
     position: absolute; 
-    background-color: var(--bg4);   /* A dark background color */
+    background-color: var(--bg3);   /* A dark background color */
+    box-shadow: 5px 10px #888888;
+
 
 }
 
 .page_header__oRW75 {
     flex-shrink: 0; /* Don't allow the header to shrink */
     border-color: black;
-    border-width: 5px;
     border-radius: 25px;
     height: 10%;
     margin: 20px;
@@ -69,8 +71,9 @@
 
 .page_h1__HkJRI {
 
-    font-family: 'mainHeavy', fallbackFont, sans-serif;
-    font-size:2vw;
+    font-family: 'mainMedium', fallbackFont, sans-serif;
+    font-size:2.5vw;
+    padding-left: 2%;
 }
 
 
@@ -81,7 +84,6 @@
     flex-grow: 1; /* Allow the wrapper to grow and fill remaining space */
     overflow: auto;
     border-color: black;
-    border-width: 5px;
     border-radius: 25px;
     height: 100%;
     margin: 20px;
@@ -99,8 +101,8 @@
     margin: 5px 0;        /* Adds space between buttons */
     border: none;         /* Removes the default border */
     border-radius: 5px;   /* Rounded corners for a modern look */
-    background-color: var(--bg3);   /* A dark background color */
-    color: #fff;          /* White text color */
+    background-color: var(--bg2);   /* A dark background color */
+    color: var(--bg4);          /* White text color */
     cursor: pointer;      /* Hand cursor on hover */
     text-align: center;   /* Centered text */
     transition: background-color 0.3s;   /* Smooth transition for hover effect */
@@ -109,7 +111,8 @@
 }
 
 .page_menuButton__3y3__:hover {
-    background-color: #555;  /* Slightly lighter color on hover */
+    color: #fff;          /* White text color */
+    background-color: var(--bg4);  /* Slightly lighter color on hover */
 }
 
 

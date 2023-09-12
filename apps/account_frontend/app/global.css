@@ -2,10 +2,10 @@
 :root {
   --blue: #1e90ff;
   --white: #ffffff;
-  --bg1: #5585b5; 
-  --bg2: #53a8b6; 
-  --bg3: #79c2d0; 
-  --bg4: #bbe4e9; 
+  --bg1: #e7e6e1; 
+  --bg2: #f1f1f1; 
+  --bg3: #40a798; 
+  --bg4: #476268; 
   
 }
 
@@ -44,7 +44,7 @@ body {
   font-family: inherit;
   line-height: inherit;
   margin: 0;
-  background-color: var(--bg2);   /* A dark background color */
+  background-color: var(--bg4);   /* A dark background color */
 
 }
 h1,
