@@ -54,7 +54,12 @@ export class AuthService {
     return await bcrypt.hash(password, 10); // Use a salt round of 10 or more
   }
 
+  async hashToken(token: string){
+    return await bcrypt.hash(token, 10); // Use a salt round of 10 or more
+  }
+
   async checkPassword(sentPassword: string, storedHashedPassword: string){
     return await bcrypt.compare(sentPassword, storedHashedPassword);
   }
+
 }

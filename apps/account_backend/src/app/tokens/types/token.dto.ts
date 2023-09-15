@@ -10,14 +10,19 @@ export class CreateTokenDto {
     userUuid: string;
 
     @ApiProperty({
-        example: ConstantsService.EXAMPLES.PASSWORD
-    })
-    password: string;
-
-    @ApiProperty({
         example: ConstantsService.EXAMPLES.UUID
     })
     accountUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.USER_NAME
+    })
+    username: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.PASSWORD
+    })
+    password: string;
     
 }
 
@@ -31,12 +36,22 @@ export class UpdateTokenDto {
     @ApiProperty({
         example: ConstantsService.EXAMPLES.UUID
     })
-    userUuid: string;
+    accountUuid: string;
 
     @ApiProperty({
         example: ConstantsService.EXAMPLES.UUID
     })
-    accountUuid: string;
+    userUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.USER_NAME
+    })
+    username: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.PASSWORD
+    })
+    password: string;
 }
 
 export class GetTokenDto {
@@ -44,6 +59,21 @@ export class GetTokenDto {
         example: ConstantsService.EXAMPLES.UUID
     })
     tokenUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.UUID
+    })
+    userUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.USER_NAME
+    })
+    username: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.PASSWORD
+    })
+    password: string;
 }
 
 export class DeleteTokenDto {
@@ -51,4 +81,19 @@ export class DeleteTokenDto {
         example: ConstantsService.EXAMPLES.UUID
     })
     tokenUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.UUID
+    })
+    userUuid: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.USER_NAME
+    })
+    username: string;
+
+    @ApiProperty({
+        example: ConstantsService.EXAMPLES.PASSWORD
+    })
+    password: string;
 }

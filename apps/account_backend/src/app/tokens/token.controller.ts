@@ -53,6 +53,6 @@ export class TokenController {
   deleteToken(
     @Body() deleteTokenDto: DeleteTokenDto
     ) {
-    return this.tokenService.deleteToken(deleteTokenDto);
+    return this.tokenService.deleteToken(deleteTokenDto.tokenUuid, deleteTokenDto);
   }
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { CreateTokenDto, DeleteTokenDto, GetTokenDto, UpdateTokenDto } from './types/token.dto';
 import { Token } from './types/token.model';
 import { PageNotFoundError } from 'next/dist/shared/lib/utils';
@@ -15,53 +15,81 @@ export class TokenService {
     private readonly userService: UserService
   ){}
 
-  async getToken(token: GetTokenDto): Promise<Token> {
-    const singleToken = await this.tokensModel.findOne({
-      where: {
-        tokenUuid: token.tokenUuid
+  async getToken(getTokenDto: GetTokenDto): Promise<Token> {
+    const specificUser = await this.userService.getUser(getTokenDto.userUuid);
+    if(this.authService.checkPassword(specificUser.password, getTokenDto.password)){
+      const singleToken = await this.tokensModel.findOne({
+        where: {
+          tokenUuid: getTokenDto.tokenUuid
+        }
+      });
+      if(singleToken){
+        return singleToken;
+      }else{
+        throw new NotFoundException(`Could not find that token`);
       }
-    });
-    if(singleToken){
-      return singleToken;
     }else{
-      throw new NotFoundException(`Could not find that token`);
+      throw new ForbiddenException(`Incorrect username or password`);
     }
   }
 
   async createToken(createTokenDto: CreateTokenDto): Promise<Token> {
     const specificUser = await this.userService.getUser(createTokenDto.userUuid);
-    return this.tokensModel.create({
-      token: await this.authService.generateJwt(specificUser),
-      ...createTokenDto
-    });
+    if(this.authService.checkPassword(specificUser.password, createTokenDto.password)){
+      const generatedToken = await this.authService.generateJwt(specificUser);
+      let hashedToken = null;
+      if(generatedToken){
+        hashedToken = await this.authService.hashToken(generatedToken)
+      }
+      const createdToken = await this.tokensModel.create({
+        token: hashedToken,
+        ...createTokenDto
+      });
+      createdToken.token = generatedToken;
+      return createdToken;
+    }else{ 
+      throw new ForbiddenException(`Incorrect username or password`);
+    }
   }
 
   async updateToken(tokenUuid: string, updateTokenDto: UpdateTokenDto): Promise<Token> {
     const specificUser = await this.userService.getUser(updateTokenDto.userUuid);
-    const rowCount = await this.tokensModel.update({
-      token: await this.authService.generateJwt(specificUser),
-      ...updateTokenDto
-    }, {
-      where:{
-        tokenUuid
+    if(this.authService.checkPassword(specificUser.password, updateTokenDto.password)){
+      const generatedToken = await this.authService.generateJwt(specificUser);
+      let hashedToken = null;
+      if(generatedToken){
+        const hashedToken = await this.authService.hashToken(generatedToken)
       }
-    })
-    if(rowCount?.length > 0){
-      return this.tokensModel.findOne({
-        where: {
+      const rowCount = await this.tokensModel.update({
+        token: hashedToken,
+        ...updateTokenDto
+      }, {
+        where:{
           tokenUuid
         }
-      });
+      })
+      if(rowCount?.length > 0){
+        return this.tokensModel.findOne({
+          where: {
+            tokenUuid
+          }
+        });
+      }else{
+        throw new PageNotFoundError(`No Token Found...... None updated....`)
+      }
     }else{
-      throw new PageNotFoundError(`No Token Found...... None updated....`)
+      throw new ForbiddenException(`Incorrect username or password`);
     }
   }
 
-  deleteToken(deleteTokenDto: DeleteTokenDto): Promise<number> {
-    return this.tokensModel.destroy({
-      where:{
-        deleteTokenDto
-      }
-    });
+  async deleteToken(tokenUuid: string, deleteTokenDto: DeleteTokenDto): Promise<number> {
+    const specificUser = await this.userService.getUser(deleteTokenDto.userUuid);
+    if(this.authService.checkPassword(specificUser.password, deleteTokenDto.password)){
+      return this.tokensModel.destroy({
+        where:{
+          tokenUuid
+        }
+      });
+    }
   }
 }
