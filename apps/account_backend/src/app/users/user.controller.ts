@@ -18,6 +18,15 @@ export class UsersController {
   getUser(@Param('userUuid') userUuid: string) {
     return this.userService.getUser(userUuid);
   }
+  
+  @Get(`/:userUuid/tokens`)
+  @ApiOperation({ summary: 'Get User' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  @ApiResponse({ status: 404, description: 'Not Found.' })
+  @UseInterceptors(LogParamsInterceptor)
+  getUserWithTokens(@Param('userUuid') userUuid: string) {
+    return this.userService.getUserWithTokens(userUuid);
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create User' })

@@ -8,6 +8,7 @@ import { User } from './users/types/user.model';
 import { BillingInfo } from './billing/types/billingInfo.model';
 import { UserAccount } from './users/types/userAccount.model';
 import { Transaction } from './transactions/types/transactions.model';
+import { Token } from './tokens/types/token.model';
 
 @Global()
 @Module({
@@ -23,7 +24,7 @@ import { Transaction } from './transactions/types/transactions.model';
         database: 'example',
         autoLoadModels: true,
         synchronize: true,
-        models: [Account, User, BillingInfo, UserAccount, Transaction], // Ensure Account model is here
+        models: [Account, User, BillingInfo, UserAccount, Transaction, Token], // Ensure Account model is here
       }),
       inject: [ConfigService], // Inject the ConfigService to be used in the useFactory function
     }),

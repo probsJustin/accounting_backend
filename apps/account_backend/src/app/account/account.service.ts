@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../users/types/user.model';
 import { BillingInfo } from '../billing/types/billingInfo.model';
 import { Transaction } from '../transactions/types/transactions.model';
+import { Token } from '../tokens/types/token.model';
 
 @Injectable()
 export class AccountService {
@@ -47,6 +48,14 @@ export class AccountService {
         {
           model: User,
           as: 'users',  // This alias should match what you've defined in your associations (if you've defined any).
+          include: [
+            {
+              model: Token,
+              where:{
+                accountUuid
+              }
+            }
+          ]
         }
       ]
     });

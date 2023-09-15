@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Account } from '../account/types/account.model';
 import { Op } from 'sequelize';
 import { AuthService } from '../auth/auth.service';
+import { Token } from '../tokens/types/token.model';
 
 
 @Injectable()
@@ -37,6 +38,25 @@ export class UserService {
       where: {
         userUuid
       }
+    });
+    if(user){
+      return user;
+    }else{
+      throw new NotFoundException(`Could not find an user with that UUID`);
+    }
+  }
+
+  async getUserWithTokens(userUuid: string): Promise<User> {
+    const user = await this.usersModel.findOne({
+      where: {
+        userUuid
+      },
+      include: [
+        {
+          model: Token,
+          as: 'tokens',  // This alias should match what you've defined in your associations (if you've defined any).
+        },
+      ]
     });
     if(user){
       return user;

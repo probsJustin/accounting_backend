@@ -45,7 +45,9 @@ export class AuthService {
 
   async generateJwt(user: User) {
     const payload = { username: user.username }; // or whatever you want to encode
-    return this.jwtService.sign(payload);
+    const token = this.jwtService.sign(payload);
+    console.log(token)
+    return token;
   }
 
   async hashPassword(password: string){

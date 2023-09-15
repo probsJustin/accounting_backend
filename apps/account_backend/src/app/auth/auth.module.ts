@@ -8,7 +8,10 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     forwardRef(() => UserModule),
-    JwtModule,
+    JwtModule.register({
+      secret: 'f$4Hd*Gh9&kL1@!7zXv8^Qw5%Er6',  // your secret key
+      signOptions: { expiresIn: '60m' }, // if you want to set token expiration
+    }),
     PassportModule
   ],
   controllers: [],

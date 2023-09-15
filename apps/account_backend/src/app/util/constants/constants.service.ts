@@ -11,11 +11,12 @@ export class ConstantsService {
 
 
 
-    static ACCOUNT_URI = '/account'
-    static BILLING_URI = '/billing'
-    static USER_URI = '/user'
-    static ACTIONS_URI = '/actions'
-    static TRANSACTION_URI = '/transactions'
+    static ACCOUNT_URI = '/account';
+    static BILLING_URI = '/billing';
+    static TOKEN_URI = '/token';
+    static USER_URI = '/user';
+    static ACTIONS_URI = '/actions';
+    static TRANSACTION_URI = '/transactions';
 
     static ACTIONS_REFUND_AN_ACCOUNT = '/refund';
     static ACTIONS_BILL_AN_ACCOUNT = '/bill';
@@ -33,6 +34,7 @@ export class ConstantsService {
         ACCOUNT_NAME: 'Pane Relief Glassworks',
         DOLLAR_AMMOUNT: 12.20,
         DATE: '2023-09-10T02:42:52Z',
-        BILLING_TYPE: 'VISA'
+        BILLING_TYPE: 'VISA',
+        JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
     }
 }

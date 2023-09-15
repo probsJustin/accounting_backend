@@ -21,6 +21,8 @@ import { TransactionController } from './transactions/transactions.controller';
 import { TransactionModule } from './transactions/transactions.module';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { TokenModule } from './tokens/token.module';
+import { TokenController } from './tokens/token.controller';
 
 @Module({
   imports: [
@@ -35,14 +37,16 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     BillingModule,
     TransactionModule,
-    JwtModule
+    JwtModule,
+    TokenModule
   ],
   controllers: [ 
     ActionController, 
     UsersController, 
     BillingController, 
     AccountController,
-    TransactionController
+    TransactionController,
+    TokenController
   ],
   providers: [
     AppService, 

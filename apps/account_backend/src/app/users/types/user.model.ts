@@ -3,15 +3,11 @@ import { CreateUserDto } from './user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { Account } from '../../account/types/account.model';
 import { UserAccount } from './userAccount.model';
+import { Token } from '../../tokens/types/token.model';
 
 
 @Table
 export class User extends Model {
-
-    @AutoIncrement
-    @PrimaryKey
-    @Column
-    id: number;
 
     @Column
     username: string;
@@ -42,6 +38,9 @@ export class User extends Model {
 
     @BelongsToMany(() => Account, () => UserAccount)
     accounts: Account[];
+
+    @HasMany(() => Token)
+    tokens: Token[];
 
 }
 
