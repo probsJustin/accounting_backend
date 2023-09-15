@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
+import { AppConfigService } from '../util/config/config.service';
 
 @Injectable()
 export class BackEndStripeService {
   private readonly stripe: Stripe;
-
+  private appConfigService: AppConfigService
+  
   constructor() {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    this.stripe = new Stripe(this.appConfigService.get('STRIPE_SECRET_KEY').toString() , {
       apiVersion: '2023-08-16',
     });
   }

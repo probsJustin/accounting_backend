@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as paypal from 'paypal-rest-sdk';
+import { AppConfigService } from '../util/config/config.service';
 
 /*
 You need to replace http://return.url and http://cancel.url with your own URLs. The return URL is where PayPal redirects after a successful payment, while the cancel URL is where PayPal redirects if the customer decides to cancel the payment. (not sure this is needed since this is a backend request)
@@ -9,12 +10,13 @@ The above example uses PayPal's sandbox mode. For production, you should change 
 
 @Injectable()
 export class PaypalService {
+  private appConfigService: AppConfigService
   private readonly clientID: string;
   private readonly clientSecret: string;
 
   constructor() {
-    this.clientID = process.env.PAYPAL_CLIENT_ID;
-    this.clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+    this.clientID = this.appConfigService.get('PAYPAL_CLIENT_ID');
+    this.clientSecret = this.appConfigService.get('PAYPAL_CLIENT_SECRET');
 
     paypal.configure({
       mode: 'sandbox', // Change this to 'live' in production

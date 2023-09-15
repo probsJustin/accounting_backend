@@ -19,10 +19,10 @@ export class AppConfigService {
 
     constructor(private configService: ConfigService) {}
 
-    get(key: string): string | number | undefined {
+    get(key: string): string | undefined {
         const envVarName = this.configMapping[key];
         if (!envVarName) return undefined;
 
-        return this.configService.get<string | number>(envVarName);
+        return this.configService.get<string | number>(envVarName).toString();
     }
 }
