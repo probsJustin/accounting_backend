@@ -53,7 +53,9 @@ export class AccountService {
               model: Token,
               where:{
                 accountUuid
-              }
+              },
+              required: false
+
             }
           ]
         }
