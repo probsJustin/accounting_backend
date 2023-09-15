@@ -10,6 +10,7 @@ tmp
 .next/
 */.next/*
 *.next*
+.env
 
 # dependencies
 node_modules
