@@ -23,6 +23,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { TokenModule } from './tokens/token.module';
 import { TokenController } from './tokens/token.controller';
+import { AppConfigModule } from './util/config/config.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { TokenController } from './tokens/token.controller';
     BillingModule,
     TransactionModule,
     JwtModule,
-    TokenModule
+    TokenModule,
+    AppConfigModule
   ],
   controllers: [ 
     ActionController, 

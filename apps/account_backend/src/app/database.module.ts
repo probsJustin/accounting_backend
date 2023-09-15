@@ -32,3 +32,4 @@ import { Token } from './tokens/types/token.model';
   exports: [SequelizeModule],
 })
 export class DatabaseModule {}
+ 

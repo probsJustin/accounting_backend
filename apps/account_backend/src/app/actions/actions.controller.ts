@@ -7,7 +7,7 @@ import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
 import { JwtAuthGuard } from '../auth/strategies/jwt-auth.guard';
 
 @ApiTags('Actions')
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @Controller(`${ConstantsService.ACTIONS_URI}`)
 export class ActionController {
   constructor(private readonly actionService: ActionService) {}
