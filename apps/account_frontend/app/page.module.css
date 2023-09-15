@@ -30,6 +30,7 @@
     padding: 5px;
     margin-left: 5px;
     height: 100%;
+    width: 100%;
     position: static; 
     background-color: var(--bg1);   /* A dark background color */
     font-family: 'mainLight', fallbackFont, sans-serif;
@@ -37,6 +38,10 @@
     padding: 1%;
     padding-left: 1.5%;
 
+}
+
+.paragraph {
+    padding-top: 2%;
 }
 
 .fullCard {
