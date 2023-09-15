@@ -27,7 +27,7 @@ export class BackupService {
     execSync(`mysqldump -u ${this.appConfigService.get('DB_USERNAME')} -p ${this.appConfigService.get('DB_PASSWORD')} ${this.appConfigService.get('DB_NAME')} > ./backup.sql`);
     
     // Upload to Google Drive
-    await this.uploadToDrive('/path/to/backup.sql');
+    await this.uploadToDrive('/accounting_backend_backups/backup.sql');
     
     this.logger.debug('Finished backup process');
   }

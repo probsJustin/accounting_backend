@@ -88,7 +88,7 @@ resource "null_resource" "copy_env_file" {
 
 resource "null_resource" "upload_env_file" {
   provisioner "file" {
-    source      = "/path/on/your/machine/.env"
+    source      = "./.env"
     destination = "/home/ec2-user/.env"
 
     connection {
