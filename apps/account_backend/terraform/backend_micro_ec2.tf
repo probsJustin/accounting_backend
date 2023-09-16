@@ -23,79 +23,124 @@ Lastly, always ensure to follow best practices when working with Terraform and A
 */
 
 provider "aws" {
-  region = "us-west-1"
+  region = "us-east-2"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "Main VPC"
+  }
+}
+
+resource "aws_subnet" "subnet_1" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-2a"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "Main Subnet 1"
+  }
+}
+
+resource "aws_subnet" "subnet_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "us-east-2b"
+  tags = {
+    Name = "Main Subnet 2"
+  }
 }
 
 resource "aws_instance" "backend" {
-  ami           = "ami-0c55b159cbfafe1f0" # You might need to replace this with the latest Amazon Linux 2 AMI ID for your region
+  ami           = "ami-0c55b159cbfafe1f0"  // Replace this with the latest Amazon Linux 2 AMI ID for your region if needed
   instance_type = "t2.micro"
+  subnet_id     = aws_subnet.subnet_1.id
 
-  key_name               = aws_key_pair.backend.key_name
   vpc_security_group_ids = [aws_security_group.backend.id]
 
   user_data = <<-EOT
-              #!/bin/bash
-              sudo yum -y update
-              sudo yum -y install wget
-              # Add more commands as needed
-              EOT
+  #!/bin/bash
+  
+  sudo useradd ec2-user
+  echo "ec2-user:YOUR_PASSWORD" | sudo chpasswd
+  sudo adduser ec2-user sudo
+
+  # Update and Install Essential Packages
+  sudo yum -y update
+  sudo yum -y install wget git
+
+  # Install Node.js and Nx CLI
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  . ~/.nvm/nvm.sh
+  nvm install node
+  npm install -g nx
+
+  # Clone Nx Monorepo
+  git clone https://github.com/probsJustin/accounting_backend ~/nx-monorepo
+  cd ~/nx-monorepo
+
+  # Install App Dependencies
+  npm install
+
+  # Start the Application in Background
+  npx nx run account_backend:serve:development --verbose &
+
+EOT
 
   tags = {
     Name = "terraform-backend-instance"
   }
 }
 
-resource "aws_key_pair" "backend" {
-  key_name   = "backend-key"
-  public_key = file("~/.ssh/id_rsa.pub") # Assuming you have a public key at this location
-}
-
 resource "aws_security_group" "backend" {
   name        = "backend"
   description = "Allow SSH inbound traffic"
+  vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress {
+  ingress {
     from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    to_port     = 65535
+    protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-resource "null_resource" "copy_env_file" {
-  provisioner "remote-exec" {
-    inline = ["echo 'Copying .env file'", "sudo mv /home/ec2-user/.env /path/on/your/instance/"]
+module "mysql_db" {
+  source              = "./mysql_db"
+  subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]  // Include both subnets here
+  vpc_id              = aws_vpc.main.id
+  db_name             = "example"
+  db_username         = "root"
+  db_password         = "testtest"  # Please use a more secure password!
+  allowed_cidr_blocks = ["1.2.3.4/32"]  # Replace with your IP or network range
+}
 
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = file("~/.ssh/id_rsa")
-      host        = aws_instance.backend.public_ip
-    }
-  }
+output "mysql_endpoint" {
+  value = module.mysql_db.db_endpoint
+}
 
-  triggers = {
-    instance_id = aws_instance.backend.id
-  }
+output "mysql_port" {
+  value = module.mysql_db.db_port
 }
 
 resource "null_resource" "upload_env_file" {
   provisioner "file" {
-    source      = "./.env"
+    source      = "../.env"
     destination = "/home/ec2-user/.env"
 
     connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = file("~/.ssh/id_rsa")
-      host        = aws_instance.backend.public_ip
+      type     = "ssh"
+      user     = "ec2-user"
+      password = "YOUR_PASSWORD"  // Replace with the password you set in user_data
+      host     = aws_instance.backend.public_ip
     }
   }
 
