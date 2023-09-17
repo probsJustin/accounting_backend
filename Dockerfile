@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json first to leverage Docker cache
 COPY package*.json ./
 COPY nx.json ./
-COPY workspace.json ./
 COPY apps/account_backend apps/account_backend
 COPY libs/ libs/
 
