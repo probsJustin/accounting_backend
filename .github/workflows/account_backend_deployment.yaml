@@ -1,0 +1,79 @@
+name: Deploy to AWS with Terraform from Production Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./apps/account_backend
+        push: true
+        tags: justinshagerty/account_backend:latest  # Replace 'your-dockerhub-username' and 'your-repo-name' with your details
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.5 # specify the version of Terraform you wish to use
+
+    - name: Terraform Init
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        terraform init -backend-config="bucket=my-terraform-state-bucket" \
+                       -backend-config="key=${{ secrets.S3_KEY_PATH }}" \
+                       -backend-config="region=us-east-2" \
+                       -backend-config="dynamodb_table=terraform-up-and-running-locks" \
+                       -backend-config="encrypt=true"
+      working-directory: /apps/account_backend/terraform
+
+    - name: Terraform Validate
+      run: terraform validate
+
+        - name: Terraform Plan
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        terraform plan -backend-config="bucket=backend-account" \
+                       -backend-config="key=${{ secrets.S3_KEY_PATH }}" \
+                       -backend-config="region=us-east-2" \
+                       -backend-config="dynamodb_table=terraform-up-and-running-locks" \
+                       -backend-config="encrypt=true"
+      working-directory: /apps/account_backend/terraform
+
+      - name: Terraform Apply
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        terraform apply --auto-approve \
+                       -backend-config="bucket=backend-account" \
+                       -backend-config="key=${{ secrets.S3_KEY_PATH }}" \
+                       -backend-config="region=us-east-2" \
+                       -backend-config="dynamodb_table=terraform-up-and-running-locks" \
+                       -backend-config="encrypt=true"
+      working-directory: /apps/account_backend/terraform
+

@@ -1,29 +1,7 @@
-
 //generated with chatgpt 
-/*
-
-Make sure you replace the paths /path/on/your/machine/.env and /path/on/your/instance/ with the correct paths.
-
-Here's a brief explanation of the script:
-
-AWS Provider: This defines which AWS region the resources will be created in.
-EC2 instance: This resource block creates a t2.micro instance. The user_data section allows you to execute scripts at launch.
-Key Pair: It's used to SSH into the EC2 instance.
-Security Group: This allows SSH inbound traffic and all outbound traffic.
-null_resource with remote-exec provisioner: This is used to execute commands on remote hosts. In this example, it's used to move the .env file to the desired path on the instance.
-null_resource with file provisioner: This is used to upload files to remote hosts. In this example, it uploads the .env file to the EC2 instance.
-Important Considerations:
-
-Make sure you have the required permissions to create and manage these AWS resources.
-Replace the AMI ID with the ID for the latest Amazon Linux 2 or another preferred AMI in your region.
-Ensure you have an SSH key pair ready; this script assumes it's located in ~/.ssh/id_rsa.pub for the public key.
-The security group allows SSH traffic from all IPs (0.0.0.0/0). Consider narrowing this down to your IP for security reasons.
-Remember to run terraform init to initialize the Terraform configuration before applying the script with terraform apply.
-Lastly, always ensure to follow best practices when working with Terraform and AWS, especially when managing real infrastructure and sensitive data.
-*/
 
 provider "aws" {
-  region = "us-east-2"
+  region = var.aws_region
 }
 
 resource "aws_vpc" "main" {
@@ -53,8 +31,8 @@ resource "aws_subnet" "subnet_2" {
 }
 
 resource "aws_instance" "backend" {
-  ami           = "ami-0c55b159cbfafe1f0"  // Replace this with the latest Amazon Linux 2 AMI ID for your region if needed
-  instance_type = "t2.micro"
+  ami           = var.ami_id
+  instance_type = var.instance_type
   subnet_id     = aws_subnet.subnet_1.id
 
   vpc_security_group_ids = [aws_security_group.backend.id]
@@ -95,32 +73,27 @@ EOT
 
 resource "aws_security_group" "backend" {
   name        = "backend"
-  description = "Allow SSH inbound traffic"
-  vpc_id = aws_vpc.main.id
+  description = "Allow SSH inbound traffic and necessary application traffic"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 0
-    to_port     = 65535
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]  // Ideally, this should be restricted to known IPs
   }
 
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  // Add more ingress rules as needed for your application, e.g., HTTP/HTTPS
 }
 
 module "mysql_db" {
   source              = "./mysql_db"
-  subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]  // Include both subnets here
+  subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
   vpc_id              = aws_vpc.main.id
   db_name             = "example"
   db_username         = "root"
-  db_password         = "testtest"  # Please use a more secure password!
-  allowed_cidr_blocks = ["1.2.3.4/32"]  # Replace with your IP or network range
+  db_password         = var.db_password
+  allowed_cidr_blocks = [var.my_ip]
 }
 
 output "mysql_endpoint" {
@@ -131,22 +104,28 @@ output "mysql_port" {
   value = module.mysql_db.db_port
 }
 
-resource "null_resource" "upload_env_file" {
-  provisioner "file" {
-    source      = "../.env"
-    destination = "/home/ec2-user/.env"
+// Variables
+variable "aws_region" {
+  description = "The AWS region to deploy into (e.g. us-east-2)"
+  default     = "us-east-2"
+}
 
-    connection {
-      type     = "ssh"
-      user     = "ec2-user"
-      password = "YOUR_PASSWORD"  // Replace with the password you set in user_data
-      host     = aws_instance.backend.public_ip
-    }
-  }
+variable "ami_id" {
+  description = "The ID of the AMI to be used"
+  default     = "ami-01103fb68b3569475"
+}
 
-  triggers = {
-    instance_id = aws_instance.backend.id
-  }
+variable "instance_type" {
+  description = "The instance type of the EC2 instance"
+  default     = "t2.micro"
+}
 
-  depends_on = [aws_instance.backend]
+variable "db_password" {
+  description = "Password for the database root user"
+  default     = "testtest"
+}
+
+variable "my_ip" {
+  description = "Your IP for MySQL access"
+  default     = "1.2.3.4/32"
 }

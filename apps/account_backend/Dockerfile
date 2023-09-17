@@ -1,8 +1,25 @@
-# Use the official MySQL image as the base
-FROM mysql:8.0
+# Use Node.js as the base image
+FROM node:18
 
-# Set environment variable for the database name
-ENV MYSQL_DATABASE example
+# Set the working directory in the docker image
+WORKDIR /usr/src/app
 
-# Expose the default MySQL port
-EXPOSE 3306
+# Copy package.json and package-lock.json first to leverage Docker cache
+COPY package*.json ./
+COPY nx.json ./
+COPY workspace.json ./
+COPY apps/account_backend apps/account_backend
+COPY libs/ libs/
+
+# Install global Nx CLI and project dependencies
+RUN npm install -g nx
+RUN npm install
+
+# Build the specific app (you can also use nx build if needed)
+# RUN nx build my-app
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the app
+CMD ["nx", "serve", "account_backend"]
