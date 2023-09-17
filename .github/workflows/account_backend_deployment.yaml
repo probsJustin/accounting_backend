@@ -5,10 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
 
 jobs:
-  setup:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -22,9 +24,6 @@ jobs:
     - name: List files with tree
       run: tree
 
-  logintodockeranddeploy:
-    runs-on: ubuntu-latest
-    steps:
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -36,19 +35,16 @@ jobs:
       with:
         context: .
         push: true
-        tags: justinshagerty/account_backend:latest
+        tags: justinshagerty/account_backend:latest  # Replace 'your-dockerhub-username' and 'your-repo-name' with your details
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 1.0.5
+        terraform_version: 1.0.5 # specify the version of Terraform you wish to use
 
     - name: List files with tree
       run: tree ./apps/account_backend
 
-  terraform:
-    runs-on: ubuntu-latest
-    steps:
     - name: Terraform Init
       env:
         AWS_DEFAULT_REGION: us-east-2
@@ -80,3 +76,4 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: terraform apply --auto-approve 
       working-directory: ./apps/account_backend/terraform
+
