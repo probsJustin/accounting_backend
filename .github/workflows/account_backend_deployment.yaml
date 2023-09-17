@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  
 
 jobs:
   deploy:
@@ -73,4 +75,5 @@ jobs:
                        -backend-config="dynamodb_table=terraform-up-and-running-locks" \
                        -backend-config="encrypt=true"
       working-directory: /apps/account_backend/terraform
+
 
