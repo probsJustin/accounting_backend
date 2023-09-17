@@ -47,7 +47,7 @@ jobs:
                        -backend-config="region=us-east-2" \
                        -backend-config="dynamodb_table=terraform-up-and-running-locks" \
                        -backend-config="encrypt=true"
-      working-directory: /apps/account_backend/terraform
+      
 
     - name: Terraform Plan
       env:
@@ -60,7 +60,7 @@ jobs:
                        -backend-config="region=us-east-2" \
                        -backend-config="dynamodb_table=terraform-up-and-running-locks" \
                        -backend-config="encrypt=true"
-      working-directory: /apps/account_backend/terraform
+      
 
     - name: Terraform Apply
       env:
@@ -74,6 +74,6 @@ jobs:
                        -backend-config="region=us-east-2" \
                        -backend-config="dynamodb_table=terraform-up-and-running-locks" \
                        -backend-config="encrypt=true"
-      working-directory: /apps/account_backend/terraform
+      
 
 
