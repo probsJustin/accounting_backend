@@ -43,7 +43,7 @@ jobs:
         terraform_version: 1.0.5 # specify the version of Terraform you wish to use
 
     - name: List files with tree
-      run: tree
+      run: tree ./apps/account_backend
 
     - name: Terraform Init
       env:
