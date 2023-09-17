@@ -58,12 +58,16 @@ jobs:
                        -backend-config="encrypt=true"
       working-directory: ./apps/account_backend/terraform
 
+    - name: List files with tree
+      run: pwd
+
     - name: Terraform Plan
       env:
         AWS_DEFAULT_REGION: us-east-2
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: terraform plan 
+      working-directory: ./apps/account_backend/terraform
 
     - name: Terraform Apply
       env:
