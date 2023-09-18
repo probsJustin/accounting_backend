@@ -4,6 +4,16 @@ provider "aws" {
   region = var.aws_region
 }
 
+terraform {
+  backend "s3" {
+    bucket = "backend-account"
+    key    = "path/to/my/key"
+    region = "us-east-2"
+    dynamodb_table = "terraform-up-and-running-locks"
+    encrypt        = true
+  }
+}
+
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
