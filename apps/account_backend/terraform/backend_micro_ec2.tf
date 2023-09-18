@@ -58,22 +58,15 @@ resource "aws_instance" "backend" {
   sudo yum -y update
   sudo yum -y install wget git
 
-  # Install Node.js and Nx CLI
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-  . ~/.nvm/nvm.sh
-  nvm install node
-  npm install -g nx
-
-  # Clone Nx Monorepo
-  git clone https://github.com/probsJustin/accounting_backend ~/nx-monorepo
-  cd ~/nx-monorepo
-
-  # Install App Dependencies
-  npm install
-
-  # Start the Application in Background
-  npx nx run account_backend:serve:development --verbose &
-
+  # Install Docker
+  sudo amazon-linux-extras install docker
+  sudo service docker start
+  sudo usermod -a -G docker ec2-user
+  
+  # Pull and run the Docker image
+  docker pull justinshagerty/account_backend:latest
+  docker run -d -p 8080:8080 justinshagerty/account_backend:latest
+  
 EOT
 
   tags = {
