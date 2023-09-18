@@ -65,7 +65,7 @@ resource "aws_instance" "backend" {
   
   # Pull and run the Docker image
   docker pull justinshagerty/account_backend:latest
-  docker run -d -p 8080:8080 justinshagerty/account_backend:latest
+  docker run -d --restart always -p 8080:8080 justinshagerty/account_backend:latest
   
 EOT
 
@@ -76,18 +76,30 @@ EOT
 
 resource "aws_security_group" "backend" {
   name        = "backend"
-  description = "Allow SSH inbound traffic and necessary application traffic"
+  description = "Allow all inbound and outbound traffic for demonstration"
   vpc_id      = aws_vpc.main.id
 
+  // Allow all incoming traffic
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  // Ideally, this should be restricted to known IPs
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  // Add more ingress rules as needed for your application, e.g., HTTP/HTTPS
+  // Allow all outgoing traffic
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "backend"
+  }
 }
+
 
 module "mysql_db" {
   source              = "./mysql_db"

@@ -20,7 +20,7 @@ import { Token } from './tokens/types/token.model';
         host: '127.0.0.1',
         port: 3306,
         username: 'root',
-        password: 'testtest',
+        password: 'test',
         database: 'example',
         autoLoadModels: true,
         synchronize: true,
