@@ -52,22 +52,29 @@ resource "aws_instance" "backend" {
   
   sudo useradd ec2-user
   echo "ec2-user:YOUR_PASSWORD" | sudo chpasswd
-  sudo adduser ec2-user sudo
+  sudo usermod -aG sudo ec2-user
 
   # Update and Install Essential Packages
-  sudo yum -y update
-  sudo yum -y install wget git
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
+  sudo apt-get install -y wget git
 
   # Install Docker
-  sudo amazon-linux-extras install docker
-  sudo service docker start
-  sudo usermod -a -G docker ec2-user
+  sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  sudo apt-get update
+  sudo apt-get install -y docker-ce
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo usermod -aG docker ec2-user
   
   # Pull and run the Docker image
   docker pull justinshagerty/account_backend:latest
   docker run -d --restart always -p 8080:8080 justinshagerty/account_backend:latest
   
 EOT
+
 
   tags = {
     Name = "terraform-backend-instance"
