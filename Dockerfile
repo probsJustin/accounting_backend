@@ -21,4 +21,4 @@ RUN npm install
 EXPOSE 8080
 
 # Command to run the app
-CMD ["nx", "serve", "account_backend"]
+CMD ["npx", "nx", "run", "account_backend:serve:development"]
