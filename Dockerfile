@@ -6,8 +6,7 @@ WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json first to leverage Docker cache
 COPY ./ ./
-RUN chmod -R 777 
-
+RUN chmod -R 777 .
 
 # Install global Nx CLI and project dependencies
 RUN npm install -g nx
