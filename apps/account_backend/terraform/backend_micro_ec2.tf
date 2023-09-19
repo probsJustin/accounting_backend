@@ -101,7 +101,7 @@ resource "aws_iam_role" "ssm" {
 }
 
 resource "aws_iam_role_policy_attachment" "ssm-attach" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2RoleforSSM"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
   role       = aws_iam_role.ssm.name
 }
 
