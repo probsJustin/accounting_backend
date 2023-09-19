@@ -62,6 +62,12 @@ resource "aws_instance" "backend" {
   sudo apt-get upgrade -y
   sudo apt-get install -y wget git
 
+    # Install and start SSM Agent
+  curl https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb -o amazon-ssm-agent.deb
+  sudo dpkg -i amazon-ssm-agent.deb
+  sudo systemctl start amazon-ssm-agent
+  sudo systemctl enable amazon-ssm-agent
+
   # Install Docker
   sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
