@@ -109,11 +109,11 @@ module "mysql_db" {
 }
 
 output "mysql_endpoint" {
-  value = module.mysql_db.db_endpoint
+  value = module.mysql_db.database_endpoint
 }
 
 output "mysql_port" {
-  value = module.mysql_db.db_port
+  value = module.mysql_db.database_port
 }
 
 // Variables

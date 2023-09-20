@@ -1,4 +1,4 @@
-output "db_endpoint" {
+output "database_endpoint" {
   description = "The connection endpoint"
   value       = aws_db_instance.mysql.endpoint
 }
