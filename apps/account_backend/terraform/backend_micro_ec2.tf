@@ -105,7 +105,7 @@ module "mysql_db" {
   db_name             = var.database_name
   db_username         = var.database_username
   db_password         = var.database_password
-  allowed_cidr_blocks = [var.my_ip]
+  allowed_cidr_blocks = [var.database_ip_address]
 }
 
 output "mysql_endpoint" {
@@ -152,7 +152,7 @@ variable "database_port" {
   default     = 3306
 }
 
-variable "my_ip" {
+variable "database_ip_address" {
   description = "Your IP for MySQL access"
   default     = "1.2.3.4/32"
 }

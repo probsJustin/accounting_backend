@@ -3,7 +3,7 @@ output "db_endpoint" {
   value       = aws_db_instance.mysql.endpoint
 }
 
-output "db_port" {
+output "database_port" {
   description = "The database port"
   value       = aws_db_instance.mysql.port
 }
