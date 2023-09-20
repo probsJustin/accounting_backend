@@ -43,6 +43,7 @@ resource "aws_subnet" "subnet_2" {
 resource "aws_instance" "backend" {
   ami           = var.ami_id
   instance_type = var.instance_type
+  subnet_id     = aws_subnet.subnet_1.id
   key_name      = "Deployment-Key-Pair"
   vpc_security_group_ids = [aws_security_group.backend.id]
 
@@ -55,13 +56,13 @@ resource "aws_instance" "backend" {
   usermod -a -G docker ec2-user
   
   # Pull and run the Docker image
-  echo DB_HOST="${module.mysql_db.db_endpoint}" >> /etc/environment
+  echo DB_HOST="${var.database_ip_address}" >> /etc/environment
   echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   echo DB_USERNAME="${var.database_username}" >> /etc/environment
-  echo DB_PORT="${module.mysql_db.db_port}" >> /etc/environment
+  echo DB_PORT="${var.database_port}" >> /etc/environment
   echo DB_NAME="${var.database_name}" >> /etc/environment
 
-  EOT
+EOT
 
   tags = {
     Name = "terraform-backend-instance"
@@ -96,7 +97,6 @@ resource "aws_security_group" "backend" {
     Name = "backend"
   }
 }
-
 
 module "mysql_db" {
   source              = "./mysql_db"
