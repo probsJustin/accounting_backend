@@ -7,7 +7,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "backend-account"
-    key    = "path/to/my/key"
+    key    = "test"
     region = "us-east-2"
     dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
@@ -47,36 +47,14 @@ resource "aws_instance" "backend" {
   key_name      = "Deployment-Key-Pair"
   vpc_security_group_ids = [aws_security_group.backend.id]
 
-  # IAM role for SSM
-  iam_instance_profile = aws_iam_instance_profile.ssm.name
-
   user_data = <<-EOT
   #!/bin/bash
-  
-  sudo useradd ec2-user
-  echo "ec2-user:YOUR_PASSWORD" | sudo chpasswd
-  sudo usermod -aG sudo ec2-user
 
-  # Update and Install Essential Packages
-  sudo apt-get update -y
-  sudo apt-get upgrade -y
-  sudo apt-get install -y wget git
-
-    # Install and start SSM Agent
-  curl https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb -o amazon-ssm-agent.deb
-  sudo dpkg -i amazon-ssm-agent.deb
-  sudo systemctl start amazon-ssm-agent
-  sudo systemctl enable amazon-ssm-agent
-
-  # Install Docker
-  sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  sudo apt-get update
-  sudo apt-get install -y docker-ce
-  sudo systemctl start docker
-  sudo systemctl enable docker
-  sudo usermod -aG docker ec2-user
+  yum update -y
+  yum install -y docker
+  sleep 30
+  service docker start
+  usermod -a -G docker ec2-user
   
   # Pull and run the Docker image
   docker pull justinshagerty/account_backend:latest
@@ -90,31 +68,6 @@ EOT
 }
 
 # IAM Role and policies for SSM
-resource "aws_iam_role" "ssm" {
-  name = "ssm-role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "ssm-attach" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
-  role       = aws_iam_role.ssm.name
-}
-
-resource "aws_iam_instance_profile" "ssm" {
-  name = "ssm-instance-profile"
-  role = aws_iam_role.ssm.name
-}
 
 
 resource "aws_security_group" "backend" {
@@ -170,7 +123,7 @@ variable "aws_region" {
 
 variable "ami_id" {
   description = "The ID of the AMI to be used"
-  default     = "ami-024e6efaf93d85776"
+  default     = "ami-089a545a9ed9893b6"
 }
 
 variable "instance_type" {
