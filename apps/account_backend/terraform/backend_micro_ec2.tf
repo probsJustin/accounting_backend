@@ -43,9 +43,7 @@ resource "aws_subnet" "subnet_2" {
 resource "aws_instance" "backend" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.subnet_1.id
   key_name      = "Deployment-Key-Pair"
-  vpc_security_group_ids = [aws_security_group.backend.id]
 
   user_data = <<-EOT
   #!/bin/bash
