@@ -1,9 +1,9 @@
 resource "aws_db_subnet_group" "mysql" {
-  name       = "mysql-subnet-group-unique"
+  name       = "mysql-subnet-group-unique-1"
   subnet_ids = var.subnet_ids
 
   tags = {
-    name       = "mysql-subnet-group-unique"
+    name       = "mysql-subnet-group-unique-1"
   }
 }
 

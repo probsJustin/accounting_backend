@@ -7,7 +7,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "backend-account"
-    key    = "test"
+    key    = ""
     region = "us-east-2"
     dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
@@ -50,17 +50,19 @@ resource "aws_instance" "backend" {
   user_data = <<-EOT
   #!/bin/bash
 
-  yum update -y
   yum install -y docker
   sleep 30
   service docker start
   usermod -a -G docker ec2-user
   
   # Pull and run the Docker image
-  docker pull justinshagerty/account_backend:latest
-  docker run -d --restart always -p 8080:8080 justinshagerty/account_backend:latest
-  
-EOT
+  echo DB_HOST="${module.mysql_db.db_endpoint}" >> /etc/environment
+  echo DB_PASSWORD="${var.database_password}" >> /etc/environment
+  echo DB_USERNAME="${var.database_username}" >> /etc/environment
+  echo DB_PORT="${module.mysql_db.db_port}" >> /etc/environment
+  echo DB_NAME="${var.database_name}" >> /etc/environment
+
+  EOT
 
   tags = {
     Name = "terraform-backend-instance"
@@ -128,12 +130,17 @@ variable "ami_id" {
 
 variable "instance_type" {
   description = "The instance type of the EC2 instance"
-  default     = "t2.small"
+  default     = "t2.medium"
 }
 
-variable "db_password" {
+variable "database_password" {
   description = "Password for the database root user"
   default     = "testtest"
+}
+
+variable "database_username" {
+  description = "Password for the database root user"
+  default     = "root"
 }
 
 variable "my_ip" {
