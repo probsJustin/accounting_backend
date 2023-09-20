@@ -102,9 +102,9 @@ module "mysql_db" {
   source              = "./mysql_db"
   subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
   vpc_id              = aws_vpc.main.id
-  db_name             = "example"
-  db_username         = "root"
-  db_password         = var.db_password
+  db_name             = var.database_name
+  db_username         = var.database_username
+  db_password         = var.database_password
   allowed_cidr_blocks = [var.my_ip]
 }
 
@@ -140,6 +140,11 @@ variable "database_password" {
 variable "database_username" {
   description = "Password for the database root user"
   default     = "root"
+}
+
+variable "database_name" {
+  description = "Password for the database root user"
+  default     = "example"
 }
 
 variable "my_ip" {
