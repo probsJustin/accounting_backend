@@ -147,6 +147,11 @@ variable "database_name" {
   default     = "example"
 }
 
+variable "database_port" {
+  description = "Database port"
+  default     = 3306
+}
+
 variable "my_ip" {
   description = "Your IP for MySQL access"
   default     = "1.2.3.4/32"
