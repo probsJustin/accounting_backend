@@ -75,15 +75,13 @@ resource "aws_security_group" "backend" {
   description = "Allow all inbound and outbound traffic for demonstration"
   vpc_id      = aws_vpc.main.id
 
-  // Allow all incoming traffic
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  // Allow all outgoing traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -104,6 +102,44 @@ module "mysql_db" {
   db_username         = var.database_username
   db_password         = var.database_password
   allowed_cidr_blocks = [var.database_ip_address]
+}
+
+
+# Internet Gateway to provide public access
+resource "aws_internet_gateway" "main_igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "Main Internet Gateway"
+  }
+}
+
+# Route table for the public subnet (subnet_1)
+resource "aws_route_table" "public_route_table" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main_igw.id
+  }
+
+  tags = {
+    Name = "Public Route Table"
+  }
+}
+
+# Associate the public subnet with the route table
+resource "aws_route_table_association" "subnet_1_association" {
+  subnet_id      = aws_subnet.subnet_1.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+# Ensure that the EC2 instance is associated with the security group and is in the public subnet
+resource "aws_instance" "backend" {
+  # ... other configurations ...
+
+  subnet_id = aws_subnet.subnet_1.id
+  vpc_security_group_ids = [aws_security_group.backend.id]
 }
 
 output "mysql_endpoint" {
