@@ -59,8 +59,8 @@ resource "aws_instance" "backend" {
   sudo usermod -a -G docker ec2-user
   sudo docker pull nginx
   sudo docker run -d -p 80:80 nginx
-
-
+  docker run -d --restart always -p 8080:8080 justinshagerty/account_backend:latest
+  
   # Pull and run the Docker image
   sudo echo DB_HOST="${var.database_ip_address}" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
