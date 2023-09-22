@@ -71,7 +71,7 @@ resource "aws_instance" "backend" {
   sudo chmod +x /usr/local/bin/docker-compose
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
-  docker-compose up -d
+  docker-compose -p account_backend up -d
 
 EOT
 
