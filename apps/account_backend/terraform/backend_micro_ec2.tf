@@ -61,7 +61,7 @@ resource "aws_instance" "backend" {
   sudo docker run -d -p 80:80 nginx
 
   # Pull and run the Docker image
-  sudo echo DB_HOST="${var.database_ip_address}" >> /etc/environment
+  sudo echo DB_HOST="example.cgxmjekmxzqj.us-east-2.rds.amazonaws.com" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   sudo echo DB_USERNAME="${var.database_username}" >> /etc/environment
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
@@ -69,9 +69,11 @@ resource "aws_instance" "backend" {
 
   sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
+
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
-  sudo docker-compose -p account_backend -f ./docker_compose.yaml up -d
+  docker-compose -p account_backend -f ./docker_compose.yaml up -d
+  docker-compose --version
 
 EOT
 
