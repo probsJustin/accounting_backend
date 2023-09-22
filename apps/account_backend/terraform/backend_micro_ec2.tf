@@ -47,7 +47,7 @@ resource "aws_instance" "backend" {
 
   subnet_id = aws_subnet.subnet_1.id
   vpc_security_group_ids = [aws_security_group.backend.id]
-  
+
   user_data = <<-EOT
   #!/bin/bash
 
@@ -56,6 +56,9 @@ resource "aws_instance" "backend" {
   service docker start
   usermod -a -G docker ec2-user
   
+  docker pull nginx
+  docker run -d -p 80:80 nginx
+
   # Pull and run the Docker image
   echo DB_HOST="${var.database_ip_address}" >> /etc/environment
   echo DB_PASSWORD="${var.database_password}" >> /etc/environment
@@ -79,9 +82,9 @@ resource "aws_security_group" "backend" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
