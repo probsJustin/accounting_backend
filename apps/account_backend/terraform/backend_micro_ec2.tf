@@ -57,7 +57,7 @@ resource "aws_instance" "backend" {
   echo DB_HOST="${var.database_ip_address}" >> /etc/environment
   echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   echo DB_USERNAME="${var.database_username}" >> /etc/environment
-  echo ="${var.database_port}" >> /etc/environment
+  echo DB_PORT="${var.database_port}" >> /etc/environment
   echo DB_NAME="${var.database_name}" >> /etc/environment
 
 EOT
