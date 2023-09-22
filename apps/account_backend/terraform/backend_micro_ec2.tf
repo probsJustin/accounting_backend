@@ -14,17 +14,6 @@ terraform {
   }
 }
 
-module "mysql_db" {
-  source              = "./mysql_db"
-  subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
-  vpc_id              = aws_vpc.main.id
-  db_name             = var.database_name
-  db_username         = var.database_username
-  db_password         = var.database_password
-  allowed_cidr_blocks = [var.database_ip_address]
-}
-
-
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
@@ -118,6 +107,15 @@ resource "aws_security_group" "backend" {
   }
 }
 
+module "mysql_db" {
+  source              = "./mysql_db"
+  subnet_ids          = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+  vpc_id              = aws_vpc.main.id
+  db_name             = var.database_name
+  db_username         = var.database_username
+  db_password         = var.database_password
+  allowed_cidr_blocks = [var.database_ip_address]
+}
 
 
 # Internet Gateway to provide public access
