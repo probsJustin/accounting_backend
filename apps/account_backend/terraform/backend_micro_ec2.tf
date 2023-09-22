@@ -60,16 +60,16 @@ resource "aws_instance" "backend" {
   sudo docker pull nginx
   sudo docker run -d -p 80:80 nginx
 
-  curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
-  tree
-  docker-compose up -d
-
   # Pull and run the Docker image
   sudo echo DB_HOST="${var.database_ip_address}" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   sudo echo DB_USERNAME="${var.database_username}" >> /etc/environment
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
   sudo echo DB_NAME="${var.database_name}" >> /etc/environment
+
+  curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
+  tree >> ./somefilelog.txt
+  docker-compose up -d
 
 EOT
 
