@@ -61,7 +61,7 @@ resource "aws_instance" "backend" {
   sudo docker run -d -p 80:80 nginx
 
   # Pull and run the Docker image
-  sudo echo DB_HOST="example.cgxmjekmxzqj.us-east-2.rds.amazonaws.com" >> /etc/environment
+  sudo echo DB_HOST="example.cgxmjekmxzqj.us-east-2.rds.amazonaws.com:3306" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   sudo echo DB_USERNAME="${var.database_username}" >> /etc/environment
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
@@ -74,6 +74,7 @@ resource "aws_instance" "backend" {
   tree >> ./somefilelog.txt
   docker-compose -p account_backend -f ./docker_compose.yaml up -d
   docker-compose --version
+
 
 EOT
 
