@@ -45,6 +45,9 @@ resource "aws_instance" "backend" {
   instance_type = var.instance_type
   key_name      = "Deployment-Key-Pair"
 
+  subnet_id = aws_subnet.subnet_1.id
+  vpc_security_group_ids = [aws_security_group.backend.id]
+  
   user_data = <<-EOT
   #!/bin/bash
 
@@ -135,12 +138,7 @@ resource "aws_route_table_association" "subnet_1_association" {
 }
 
 # Ensure that the EC2 instance is associated with the security group and is in the public subnet
-resource "aws_instance" "backend" {
-  # ... other configurations ...
 
-  subnet_id = aws_subnet.subnet_1.id
-  vpc_security_group_ids = [aws_security_group.backend.id]
-}
 
 output "mysql_endpoint" {
   value = module.mysql_db.database_endpoint
