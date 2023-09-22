@@ -51,20 +51,20 @@ resource "aws_instance" "backend" {
   user_data = <<-EOT
   #!/bin/bash
 
-  yum install -y docker
+  sudo yum install -y docker
   sleep 30
-  service docker start
-  usermod -a -G docker ec2-user
+  sudo service docker start
+  sudo usermod -a -G docker ec2-user
   
-  docker pull nginx
-  docker run -d -p 80:80 nginx
+  sudo docker pull nginx
+  sudo docker run -d -p 80:80 nginx
 
   # Pull and run the Docker image
-  echo DB_HOST="${var.database_ip_address}" >> /etc/environment
-  echo DB_PASSWORD="${var.database_password}" >> /etc/environment
-  echo DB_USERNAME="${var.database_username}" >> /etc/environment
-  echo DB_PORT="${var.database_port}" >> /etc/environment
-  echo DB_NAME="${var.database_name}" >> /etc/environment
+  sudo echo DB_HOST="${var.database_ip_address}" >> /etc/environment
+  sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
+  sudo echo DB_USERNAME="${var.database_username}" >> /etc/environment
+  sudo echo DB_PORT="${var.database_port}" >> /etc/environment
+  sudo echo DB_NAME="${var.database_name}" >> /etc/environment
 
 EOT
 
