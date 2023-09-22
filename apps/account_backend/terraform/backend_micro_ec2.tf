@@ -67,7 +67,9 @@ resource "aws_instance" "backend" {
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
   sudo echo DB_NAME="${var.database_name}" >> /etc/environment
 
-  curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
+  sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
   docker-compose up -d
 
