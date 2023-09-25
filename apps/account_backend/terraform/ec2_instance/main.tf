@@ -9,7 +9,6 @@ locals {
   sg_id = length(data.aws_security_group.existing.ids) > 0 ? data.aws_security_group.existing.ids[0] : aws_security_group.backend[0].id
 }
 
-
 resource "aws_instance" "backend" {
   count       = length(data.aws_security_group.existing.ids) > 0 ? 0 : 1
   ami           = var.ami_id
@@ -17,7 +16,7 @@ resource "aws_instance" "backend" {
   key_name      = "Deployment-Key-Pair"
 
   subnet_id = var.subnet_id
-  vpc_security_group_ids = [aws_security_group.backend.id]
+  security_group_id = local.sg_id
 
   user_data = var.user_data
 
