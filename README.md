@@ -21,8 +21,8 @@ Ensure you have these installed:
 
 1. **Clone the Repository**
 
-git clone <repository-url>
-cd path-to-your-repo
+git clone https://github.com/probsJustin/accounting_backend
+cd accounting_backend
 
 
 2. **Install Dependencies**
