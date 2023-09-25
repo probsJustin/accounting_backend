@@ -4,7 +4,7 @@ resource "aws_instance" "backend" {
   key_name      = "Deployment-Key-Pair"
 
   subnet_id = var.subnet_id
-  vpc_security_group_ids = [var.security_group_id]
+  vpc_security_group_ids = [aws_security_group.backend.id]
 
   user_data = var.user_data
 
