@@ -18,12 +18,17 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "security_group_id" {
-  description = "The ID of the security group for the EC2 instance"
-  type        = string
+variable "aws_region" {
+  description = "The AWS region to deploy into (e.g. us-east-2)"
+  default     = "us-east-2"
 }
 
-variable "user_data" {
-  description = "User data script to run on the EC2 instance at launch"
-  type        = string
+variable "ami_id" {
+  description = "The ID of the AMI to be used"
+  default     = "ami-089a545a9ed9893b6"
+}
+
+variable "instance_type" {
+  description = "The instance type of the EC2 instance"
+  default     = "t2.medium"
 }
