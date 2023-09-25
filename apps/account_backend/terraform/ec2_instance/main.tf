@@ -15,7 +15,7 @@ data "aws_security_group" "existing" {
 
 
 resource "aws_instance" "backend" {
-  vpc_security_group_ids = length(data.aws_security_group.existing_backend_sg) > 0 ? [data.aws_security_group.existing_backend_sg[0].id] : [aws_security_group.backend.id]
+  vpc_security_group_ids = length(data.aws_security_group.existing) > 0 ? [data.aws_security_group.existing[0].id] : [aws_security_group.backend.id]
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = "Deployment-Key-Pair"
