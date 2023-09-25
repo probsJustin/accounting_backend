@@ -8,4 +8,19 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "ami_id" {
+  description = "The ID of the Amazon Machine Image (AMI)."
+  type        = string
+}
+
+variable "instance_type" {
+  description = "The type of instance to start."
+  type        = string
+}
+
+variable "user_data" {
+  description = "The user data to provide when launching the instance."
+  type        = string
+  default     = null
+}
 
