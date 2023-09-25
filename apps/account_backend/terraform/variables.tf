@@ -23,3 +23,8 @@ variable "database_ip_address" {
   description = "Your IP for MySQL access"
   default     = "0.0.0.0/0"
 }
+
+variable "aws_region" {
+  description = "AWS REGION"
+  default     = "us-east-2"
+}
