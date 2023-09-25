@@ -1,6 +1,6 @@
 resource "aws_instance" "backend" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
+  ami           = var.module_ami_id
+  instance_type = var.module_instance_type
   key_name      = "Deployment-Key-Pair"
 
   subnet_id = var.subnet_id
