@@ -43,13 +43,12 @@ module "ec2_backend" {
   depends_on = [
     module.rds_setup
   ]
-  source          = "./ec2_instance"
-  ami_id          = var.ami_id
-  instance_type   = var.instance_type
-  subnet_id       = aws_subnet.subnet_1.id
-  vpc_id          = aws_vpc.main.id
-    security_group_id = module.ec2_backend.security_group_id
-
+  source            = "./ec2_instance"
+  ami_id            = var.ami_id
+  instance_type     = var.instance_type
+  subnet_id         = aws_subnet.subnet_1.id
+  vpc_id            = aws_vpc.main.id
+  security_group_id = 
   user_data = <<-EOT
   #!/bin/bash
 

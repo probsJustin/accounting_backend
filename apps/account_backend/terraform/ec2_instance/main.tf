@@ -1,4 +1,17 @@
+data "aws_security_group" "existing" {
+  filter {
+    name   = "group-name"
+    values = ["backend"]
+  }
+}
+
+locals {
+  sg_id = length(data.aws_security_group.existing.ids) > 0 ? data.aws_security_group.existing.ids[0] : aws_security_group.backend[0].id
+}
+
+
 resource "aws_instance" "backend" {
+  count       = length(data.aws_security_group.existing.ids) > 0 ? 0 : 1
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = "Deployment-Key-Pair"
