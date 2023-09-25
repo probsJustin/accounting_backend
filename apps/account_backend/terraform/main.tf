@@ -61,7 +61,7 @@ module "ec2_backend" {
   sudo docker run -d -p 80:80 nginx
 
   # Pull and run the Docker image
-  sudo echo DB_HOST="${var.database_ip_address}" >> /etc/environment
+  sudo echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
   sudo echo DB_USERNAME="${var.database_username}" >> /etc/environment
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
