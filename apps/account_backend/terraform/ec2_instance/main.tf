@@ -13,8 +13,6 @@ data "aws_security_group" "existing" {
   count = length(aws_security_group.backend) == 0 ? 1 : 0
 }
 
-locals {
-}
 
 resource "aws_instance" "backend" {
   vpc_security_group_ids = length(data.aws_security_group.existing_backend_sg) > 0 ? [data.aws_security_group.existing_backend_sg[0].id] : [aws_security_group.backend.id]
