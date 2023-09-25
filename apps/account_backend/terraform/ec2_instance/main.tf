@@ -3,20 +3,26 @@ data "aws_security_group" "existing" {
     name   = "group-name"
     values = ["backend"]
   }
+
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
+  }
+
+  # The "count" parameter ensures this data block only runs if the group exists.
+  count = length(aws_security_group.backend) == 0 ? 1 : 0
 }
 
 locals {
-  sg_id = length(data.aws_security_group.existing.ids) > 0 ? data.aws_security_group.existing.ids[0] : aws_security_group.backend[0].id
 }
 
 resource "aws_instance" "backend" {
-  count       = length(data.aws_security_group.existing.ids) > 0 ? 0 : 1
+  vpc_security_group_ids = length(data.aws_security_group.existing_backend_sg) > 0 ? [data.aws_security_group.existing_backend_sg[0].id] : [aws_security_group.backend.id]
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = "Deployment-Key-Pair"
 
   subnet_id = var.subnet_id
-  security_group_id = local.sg_id
 
   user_data = var.user_data
 

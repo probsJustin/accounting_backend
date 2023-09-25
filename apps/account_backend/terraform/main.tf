@@ -48,6 +48,7 @@ module "ec2_backend" {
   instance_type     = var.instance_type
   subnet_id         = aws_subnet.subnet_1.id
   vpc_id            = aws_vpc.main.id
+  security_group_id = module.ec2_backend.backend_security_group_id
   user_data = <<-EOT
   #!/bin/bash
 
