@@ -73,7 +73,7 @@ module "ec2_backend" {
 
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
-  docker-compose -p account_backend -f ./docker_compose.yaml up -d
+  docker-compose -p account_backend -f ./docker_compose.yaml up -d >> docker_compose.log
   docker-compose --version
 
   EOT
