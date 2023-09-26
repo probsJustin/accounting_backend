@@ -65,6 +65,9 @@ module "ec2_backend" {
   sudo echo DB_NAME="${var.database_name}" >> /etc/environment
 
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
+
+  source /etc/environment
+
   docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
   docker-compose --version
 
