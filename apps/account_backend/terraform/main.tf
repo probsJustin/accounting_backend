@@ -67,18 +67,17 @@ module "ec2_backend" {
     sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 
-    # Add docker-compose path to the system's PATH for all users
-    echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
-
-    # Source the updated profile and environment files to make sure we're using the updated PATH and environment variables
-    source /etc/profile
-    source /etc/environment
-
     # Pull and run the Docker Compose setup
     sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
-    sudo docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
+
+    ls -l /usr/local/bin/docker-compose &>> docker_compose.log
+    /usr/local/bin/docker-compose --version &>> docker_compose.log
+
+    # Explicitly use the absolute path for docker-compose
+    sudo /usr/local/bin/docker-compose -p account_backend -f ./docker_compose.yaml up -d &>> docker_compose.log
 
   EOT
+
 
 }
 
