@@ -52,7 +52,7 @@ module "ec2_backend" {
     #!/bin/bash
 
     # Add Environment Variables
-    echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
+    echo DB_HOST="${module.rds_setup.db_url}" >> /etc/environment
     echo DB_PASSWORD="${var.database_password}" >> /etc/environment
     echo DB_USERNAME="${var.database_username}" >> /etc/environment
     echo DB_PORT="${var.database_port}" >> /etc/environment
