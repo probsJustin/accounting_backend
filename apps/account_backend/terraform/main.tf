@@ -49,29 +49,32 @@ module "ec2_backend" {
   subnet_id         = aws_subnet.subnet_1.id
   vpc_id            = aws_vpc.main.id
   user_data = <<-EOT
-  #!/bin/bash
+    #!/bin/bash
 
-  # Pull and run the Docker image
-  echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
-  echo DB_PASSWORD="${var.database_password}" >> /etc/environment
-  echo DB_USERNAME="${var.database_username}" >> /etc/environment
-  echo DB_PORT="${var.database_port}" >> /etc/environment
-  echo DB_NAME="${var.database_name}" >> /etc/environment
+    # Set the environment variables system-wide
+    echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
+    echo DB_PASSWORD="${var.database_password}" >> /etc/environment
+    echo DB_USERNAME="${var.database_username}" >> /etc/environment
+    echo DB_PORT="${var.database_port}" >> /etc/environment
+    echo DB_NAME="${var.database_name}" >> /etc/environment
 
-  sudo su
-  sudo service docker start
+    # Start docker service
+    sudo service docker start
 
-  sudo docker pull nginx
-  sudo docker run -d -p 80:80 nginx
-  
-  sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
+    # Pull and run nginx
+    sudo docker pull nginx
+    sudo docker run -d -p 80:80 nginx
 
-  source /etc/environment
+    # Download docker-compose file
+    sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
 
-  docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
-  docker-compose --version
+    # Execute docker-compose with environment variables
+    source /etc/environment
+    sudo -E docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
+    sudo docker-compose --version
 
   EOT
+
 }
 
 
