@@ -61,7 +61,7 @@ module "ec2_backend" {
   sudo docker run -d -p 80:80 nginx
   
   sleep 60
-  
+
   # Pull and run the Docker image
   sudo echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
   sudo echo DB_PASSWORD="${var.database_password}" >> /etc/environment
@@ -69,12 +69,16 @@ module "ec2_backend" {
   sudo echo DB_PORT="${var.database_port}" >> /etc/environment
   sudo echo DB_NAME="${var.database_name}" >> /etc/environment
 
+  sudo su
+
   sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
+  sudo su
+  
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
-  docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
+  sudo docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
   docker-compose --version
 
   EOT
