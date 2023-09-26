@@ -4,5 +4,5 @@ output "db_endpoint" {
 
 output "db_url" {
   description = "Database URL without the port."
-  value      = split(":", self.db_endpoint)[0]
+  value      = split(":", aws_db_instance.default.endpoint)[0]
 }
