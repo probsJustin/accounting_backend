@@ -53,6 +53,7 @@ module "ec2_backend" {
 
   sudo su
   sudo yum install -y docker
+  sleep 15
   sudo service docker start
   sudo service docker start
 
@@ -75,7 +76,7 @@ module "ec2_backend" {
   sudo chmod +x /usr/local/bin/docker-compose
 
   sudo su
-  
+
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
   tree >> ./somefilelog.txt
   sudo docker-compose -p account_backend -f ./docker_compose.yaml up -d &> docker_compose.log
