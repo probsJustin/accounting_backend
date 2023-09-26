@@ -51,12 +51,6 @@ module "ec2_backend" {
   user_data = <<-EOT
   #!/bin/bash
 
-  sudo su
-  sudo service docker start
-
-  sudo docker pull nginx
-  sudo docker run -d -p 80:80 nginx
-  
   # Pull and run the Docker image
   echo DB_HOST="${module.rds_setup.db_endpoint}" >> /etc/environment
   echo DB_PASSWORD="${var.database_password}" >> /etc/environment
@@ -64,6 +58,12 @@ module "ec2_backend" {
   echo DB_PORT="${var.database_port}" >> /etc/environment
   echo DB_NAME="${var.database_name}" >> /etc/environment
 
+  sudo su
+  sudo service docker start
+
+  sudo docker pull nginx
+  sudo docker run -d -p 80:80 nginx
+  
   sudo curl -O -L "https://raw.githubusercontent.com/probsJustin/accounting_backend/main/apps/account_backend/docker_compose.yaml"
 
   source /etc/environment
