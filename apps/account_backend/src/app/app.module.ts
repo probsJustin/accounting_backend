@@ -24,6 +24,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { TokenModule } from './tokens/token.module';
 import { TokenController } from './tokens/token.controller';
 import { AppConfigModule } from './util/config/config.module';
+import { OrganizationController } from './organization/organization.controller';
+import { OrganizationModule } from './organization/organization.module';
 
 @Module({
   imports: [
@@ -40,7 +42,8 @@ import { AppConfigModule } from './util/config/config.module';
     TransactionModule,
     JwtModule,
     TokenModule,
-    AppConfigModule
+    AppConfigModule,
+    OrganizationModule
   ],
   controllers: [ 
     ActionController, 
@@ -48,7 +51,8 @@ import { AppConfigModule } from './util/config/config.module';
     BillingController, 
     AccountController,
     TransactionController,
-    TokenController
+    TokenController,
+    OrganizationController
   ],
   providers: [
     AppService, 
@@ -56,7 +60,6 @@ import { AppConfigModule } from './util/config/config.module';
     ConstantsService, 
     ActionService,
     AuthService,
-    
   ],
 })
 export class AppModule {}

@@ -24,10 +24,7 @@ variable "user_data" {
   default     = null
 }
 
-variable "security_group_id" {
-  description = "The ID of the security group to associate with the EC2 instance."
-  type        = string
-}
+
 
 
 
