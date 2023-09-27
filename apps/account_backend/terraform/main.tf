@@ -138,8 +138,11 @@ module "application_load_balancer" {
 }
 
 module "dns_setup" {
+  depends_on = [
+    module.application_load_balancer
+  ]
   source      = "./route53"
   website_url = "3lectronisys.com"
-  lb_dns_name = module.application_load_balancer.alb_arn
+  lb_dns_name = module.application_load_balancer.alb_dns_name 
   lb_zone_id  = module.application_load_balancer.alb_zone_id
 }
