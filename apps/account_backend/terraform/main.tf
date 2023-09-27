@@ -134,7 +134,7 @@ module "application_load_balancer" {
   source                   = "./alb"
   ec2_vpc_id               = aws_vpc.main.id
   subnet_ids               = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
-  instance_id_ec2_instance = module.ec2_backend.instance_id
+  instance_id_ec2_instance = [module.ec2_backend.instance_id]
 }
 
 module "dns_setup" {
