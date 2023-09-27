@@ -51,10 +51,10 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        terraform init -backend-config="bucket=backend-account" \
+        terraform init -backend-config="bucket=3lectronisys-backend" \
                        -backend-config="key=${{ secrets.S3_KEY_PATH }}" \
                        -backend-config="region=us-east-2" \
-                       -backend-config="dynamodb_table=terraform-up-and-running-locks" \
+                       -backend-config="dynamodb_table=3lectronisys-backend-locks" \
                        -backend-config="encrypt=true"
       working-directory: ./apps/account_backend/terraform
 
