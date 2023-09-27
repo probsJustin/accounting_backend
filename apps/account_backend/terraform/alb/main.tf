@@ -23,20 +23,13 @@ resource "aws_lb" "this" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+  subnets = var.subnet_ids
 
   enable_deletion_protection = false
 
   enable_cross_zone_load_balancing   = true
   idle_timeout                        = 60
   enable_http2                        = true
-}
-
-resource "aws_lb_target_group" "this" {
-  name     = "my-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.ec2_vpc_id
 }
 
 resource "aws_lb_listener" "front_end" {

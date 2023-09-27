@@ -4,6 +4,7 @@ variable "ec2_vpc_id" {
 }
 
 variable "subnet_ids" {
-  description = "List of Subnet IDs for the ALB"
+  description = "List of subnet IDs for the Application Load Balancer"
   type        = list(string)
 }
+
