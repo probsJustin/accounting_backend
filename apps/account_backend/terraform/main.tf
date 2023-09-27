@@ -9,7 +9,7 @@ terraform {
     bucket = "3lectronisys-backend"
     key    = ""
     region = "us-east-2"
-    dynamodb_table = "terraform-up-and-running-locks"
+    dynamodb_table = "3lectronisys-backend-locks"
     encrypt        = true
   }
 }
