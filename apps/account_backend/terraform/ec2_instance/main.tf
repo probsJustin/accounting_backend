@@ -25,12 +25,12 @@ resource "aws_instance" "backend" {
   user_data = var.user_data
 
   tags = {
-    Name = "terraform-backend-instance"
+    Name = "3lectronisys-backend"
   }
 }
 
 resource "aws_security_group" "backend" {
-  name        = "backend"
+  name        = "3lectronisys-backend-sg"
   description = "Allow all inbound and outbound traffic for demonstration"
   vpc_id      = var.vpc_id
 
@@ -49,6 +49,9 @@ resource "aws_security_group" "backend" {
   }
 
   tags = {
-    Name = "backend"
+    Name = "3lectronisys-backend-sg"
   }
 }
+
+
+

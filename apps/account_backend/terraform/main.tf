@@ -6,7 +6,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "backend-account"
+    bucket = "3lectronisys-backend"
     key    = ""
     region = "us-east-2"
     dynamodb_table = "terraform-up-and-running-locks"
@@ -20,7 +20,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "Main VPC"
+    Name = "3lectronisys Backend Main VPC"
   }
 }
 
@@ -92,7 +92,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "Public Route Table"
+    Name = "3lectronisys Backend Public Route Table"
   }
 }
 
@@ -107,7 +107,7 @@ resource "aws_internet_gateway" "main_igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "Main Internet Gateway"
+    Name = "Main 3lectronisys Backend Internet Gateway"
   }
 }
 
@@ -117,7 +117,7 @@ resource "aws_subnet" "subnet_1" {
   availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "Main Subnet 1"
+    Name = "3lectronisys Backend Subnet 1"
   }
 }
 
@@ -126,7 +126,7 @@ resource "aws_subnet" "subnet_2" {
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-2b"
   tags = {
-    Name = "Main Subnet 2"
+    Name = "3lectronisys Backend Subnet 2"
   }
 }
 

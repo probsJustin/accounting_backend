@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb_sg" {
-  name        = "alb-sg"
+  name        = "3lectronisys-alb-sg"
   description = "Allow all inbound traffic"
   vpc_id      = var.ec2_vpc_id
 
@@ -19,7 +19,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_lb" "this" {
-  name               = "my-lb"
+  name               = "3lectronisys-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
@@ -34,7 +34,7 @@ resource "aws_lb" "this" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.this.arn
-  port              = "80"
+  port              = "8080"
   protocol          = "HTTP"
 
   default_action {
@@ -47,12 +47,12 @@ resource "aws_lb_target_group_attachment" "this" {
   count             = length(var.instance_id_ec2_instance)
   target_group_arn = aws_lb_target_group.this.arn
   target_id         = var.instance_id_ec2_instance[count.index]
-  port             = 80
+  port             = 8080
 }
 
 resource "aws_lb_target_group" "this" {
-  name     = "my-tg"
-  port     = 80
+  name     = "3lectronisys-tg"
+  port     = 8080
   protocol = "HTTP"
   vpc_id   = var.ec2_vpc_id
 }
