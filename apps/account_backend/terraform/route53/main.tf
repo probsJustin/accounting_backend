@@ -12,7 +12,7 @@ resource "aws_route53_record" "this" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.this.dns_name  # <-- This should be dns_name
+    name                   = var.lb_dns_name  # This uses the input variable
     zone_id                = var.lb_zone_id
     evaluate_target_health = true
   }

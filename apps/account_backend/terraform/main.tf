@@ -143,6 +143,7 @@ module "dns_setup" {
   ]
   source      = "./route53"
   website_url = "3lectronisys.com"
+  
   lb_dns_name = module.application_load_balancer.alb_dns_name 
   lb_zone_id  = module.application_load_balancer.alb_zone_id
 }
