@@ -129,3 +129,22 @@ resource "aws_subnet" "subnet_2" {
     Name = "Main Subnet 2"
   }
 }
+
+resource "aws_lb_target_group_attachment" "this" {
+  target_group_arn = aws_lb_target_group.this.arn
+  target_id        = module.ec2_backend.instance_id
+  port             = 80
+}
+
+module "application_load_balancer" {
+  source     = "./alb_module"
+  ec2_vpc_id = aws_vpc.main.id
+  subnet_ids = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+}
+
+module "dns_setup" {
+  source      = "./route53"
+  website_url = "3lectronisys.com"
+  lb_dns_name = module.application_load_balancer.alb_arn
+  lb_zone_id  = module.application_load_balancer.alb_zone_id
+}
