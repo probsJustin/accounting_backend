@@ -1,5 +1,5 @@
 variable "ec2_vpc_id" {
-  description = "The VPC ID where resources will be created"
+  description = "VPC ID for the EC2 instance"
   type        = string
 }
 
@@ -8,3 +8,7 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "instance_id_ec2_instance" {
+  description = "List of subnet IDs for the Application Load Balancer"
+  type        = list(string)
+}

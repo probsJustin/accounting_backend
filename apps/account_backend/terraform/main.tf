@@ -130,23 +130,11 @@ resource "aws_subnet" "subnet_2" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "this" {
-  target_group_arn = aws_lb_target_group.this.arn
-  target_id        = module.ec2_backend.instance_id
-  port             = 80
-}
-
-resource "aws_lb_target_group" "this" {
-  name     = "my-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.ec2_vpc_id
-}
-
 module "application_load_balancer" {
-  source     = "./alb"
-  ec2_vpc_id = aws_vpc.main.id
-  subnet_ids = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+  source                   = "./alb"
+  ec2_vpc_id               = aws_vpc.main.id
+  subnet_ids               = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+  instance_id_ec2_instance = module.ec2_backend.instance_id
 }
 
 module "dns_setup" {
