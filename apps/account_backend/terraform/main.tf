@@ -76,6 +76,7 @@ module "ec2_backend" {
     # Explicitly use the absolute path for docker-compose
     sudo /usr/local/bin/docker-compose -p account_backend -f ./docker_compose.yaml up -d &>> docker_compose.log
 
+
   EOT
 
 
