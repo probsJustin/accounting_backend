@@ -18,7 +18,7 @@ export class ConstantsService {
     static ACTIONS_URI = '/actions';
     static TRANSACTION_URI = '/transactions';
     static ORGANIZATION_URI = '/organization';
-
+    static LOGIN_URI = '/login';
     static ACTIONS_REFUND_AN_ACCOUNT = '/refund';
     static ACTIONS_BILL_AN_ACCOUNT = '/bill';
     static ACTIONS_GET_TRANSACTIONS = '/transactions';

@@ -26,9 +26,11 @@ import { TokenController } from './tokens/token.controller';
 import { AppConfigModule } from './util/config/config.module';
 import { OrganizationController } from './organization/organization.controller';
 import { OrganizationModule } from './organization/organization.module';
+import { LoginModule } from './login/login.module';
 
 @Module({
   imports: [
+    LoginModule,
     DatabaseModule, 
     ConfigModule, 
     HttpModule, 
@@ -43,7 +45,7 @@ import { OrganizationModule } from './organization/organization.module';
     JwtModule,
     TokenModule,
     AppConfigModule,
-    OrganizationModule
+    OrganizationModule,
   ],
   controllers: [ 
     ActionController, 

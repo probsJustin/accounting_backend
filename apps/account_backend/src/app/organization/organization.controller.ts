@@ -14,7 +14,7 @@ export class OrganizationController {
 
   @Get(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
-  @ApiOperation({ summary: 'Get Account Information' })
+  @ApiOperation({ summary: 'Get Organization Information' })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   getAccount(@Param('accountUuid') accountUuid: string) {
@@ -23,7 +23,7 @@ export class OrganizationController {
 
   @Post()
   @UseInterceptors(LogParamsInterceptor)
-  @ApiOperation({ summary: 'Create Account Information' })
+  @ApiOperation({ summary: 'Create Organization Information' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -35,7 +35,7 @@ export class OrganizationController {
 
   @Put(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
-  @ApiOperation({ summary: 'Update Account Information' })
+  @ApiOperation({ summary: 'Update Organization Information' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
@@ -48,7 +48,7 @@ export class OrganizationController {
 
   @Delete(`/:accountUuid`)
   @UseInterceptors(LogParamsInterceptor)
-  @ApiOperation({ summary: 'Delete Account Information' })
+  @ApiOperation({ summary: 'Delete Organization Information' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
