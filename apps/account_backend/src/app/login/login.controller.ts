@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Req, Session, UseInterceptors } from '@nestjs/common';
 import { ConstantsService } from '../util/constants/constants.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LogParamsInterceptor } from '../util/logParams/logParams.ineceptor';
@@ -18,9 +18,11 @@ export class LoginController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   login(
-    @Body() loginDto: LoginDto
+    @Body() loginDto: LoginDto,
+    @Session() session: Record<string, any>   
     ) {
-    return this.loginService.login(loginDto);
+        const isLoggedIn = this.loginService.login(session, loginDto);
+        return { isLoggedIn };
   }
 
   @Post(`/logout`)
@@ -30,20 +32,24 @@ export class LoginController {
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   logout(
-    @Body() loginDto: LoginDto
+    @Body() loginDto: LoginDto,
+    @Session() session: Record<string, any>
     ) {
-    return this.loginService.logout(loginDto);
+    const isLoggedIn = this.loginService.logout(session, loginDto);
+    return { isLoggedIn };
   }
 
-  @Put(`/checkLogin`)
+  @Post(`/checkLogin`)
   @UseInterceptors(LogParamsInterceptor)
   @ApiOperation({ summary: 'Check login via the front end' })
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   checkLogin(
-    @Body() loginDto: LoginDto
+    @Body() loginDto: LoginDto,
+    @Session() session: Record<string, any>
     ) {
-    return this.loginService.checkLogin(loginDto);
+    const isLoggedIn = this.loginService.checkLogin(session, loginDto);
+    return { isLoggedIn };
   }
 }

@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
+import session from 'express-session';
 
 
 
@@ -15,6 +16,16 @@ async function bootstrap() {
   dotenv.config();
 
   const app = await NestFactory.create(AppModule);
+
+
+
+  app.use(
+    session({
+      secret: 'your_secret_key',  // Change this to a proper secret in production
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
   .setTitle('Accounting Backend')
