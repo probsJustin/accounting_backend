@@ -2,6 +2,7 @@
 
 import homeStyles from '../page.module.css';
 import React, { useState } from 'react';
+import CheckLoginStatus from './checkLoginStatus';
 
 
 
@@ -23,6 +24,7 @@ export default function LeftSideMenuCard() {
 
   return (
     <div className={homeStyles.loginCard}>
+            <CheckLoginStatus/>
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>

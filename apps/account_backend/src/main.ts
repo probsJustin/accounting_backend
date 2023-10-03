@@ -21,7 +21,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: 'your_secret_key',  // Change this to a proper secret in production
+      secret: process.env['SESSION_SECRET'],  // Change this to a proper secret in production
       resave: false,
       saveUninitialized: true,
     }),
