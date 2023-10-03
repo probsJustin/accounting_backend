@@ -3,12 +3,12 @@
 import homeStyles from '../page.module.css';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
+import LoginMenuButton from './loginButton';
 
 
 
 export default function LeftSideMenuCard() {
     const pathname = usePathname();
-    console.log(pathname);
 
   return (
     <div className={homeStyles.menuCard}>
@@ -42,12 +42,8 @@ export default function LeftSideMenuCard() {
         >
             Transactions
         </Link>
-        <Link 
-            href="/login"
-            className={pathname === "/login" ? `${homeStyles.selectedButton} ${homeStyles.menuButton}` : homeStyles.menuButton}
-        >
-            Login/Logout
-        </Link>
+        <LoginMenuButton/>
+
     </div>
   );
 }

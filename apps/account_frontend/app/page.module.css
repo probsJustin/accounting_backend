@@ -17,9 +17,11 @@
     border-radius: 25px;
     width: 200px;
     height: 100%;
-    position: static; 
+    position: relative;
     background-color: var(--bg2);   /* A dark background color */
     overflow:hidden;
+    /* add some bottom padding if necessary to prevent overlap */
+    padding-bottom: 30px;
 }
 
 .pageCard {
@@ -27,7 +29,6 @@
     border-color: black;
     /*border-width: 1px;*/ 
     border-radius: 25px;
-    padding: 5px;
     margin-left: 5px;
     height: 100%;
     width: 100%;
@@ -89,10 +90,9 @@
     border-radius: 25px;
     height: 100%;
     margin: 20px;
-    padding: 5px;
+    padding-left: 5px;
     position: relative;
     background-color: var(--bg2);   /* A dark background color */
-
 }
 
 
@@ -170,6 +170,26 @@
     font-family: 'mainMedium', fallbackFont, sans-serif;
 }
 
+.loginMenuButton {
+    position: absolute;
+    bottom: 0;
+    display: block;       /* To ensure each button is on a new line */
+    width: 100%;          /* Fills the width of the parent container */
+    padding: 10px;        /* Some padding for visual comfort */
+    margin: 5px 0;        /* Adds space between buttons */
+    border: none;         /* Removes the default border */
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg2);   /* A dark background color */
+    color: var(--bg4);          /* White text color */
+    cursor: pointer;      /* Hand cursor on hover */
+    text-align: center;   /* Centered text */
+    transition: background-color 0.3s;   /* Smooth transition for hover effect */
+    font-family: 'mainMedium', fallbackFont, sans-serif;
+}
 
+.loginMenuButton:hover {
+    color: #fff;          /* White text color */
+    background-color: var(--bg4);  /* Slightly lighter color on hover */
+}
 
 
