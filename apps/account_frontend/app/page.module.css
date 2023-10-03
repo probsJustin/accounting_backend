@@ -117,6 +117,52 @@
     background-color: var(--bg4);  /* Slightly lighter color on hover */
 }
 
+.selectedButton {
+    display: block;       /* To ensure each button is on a new line */
+    width: 100%;          /* Fills the width of the parent container */
+    padding: 10px;        /* Some padding for visual comfort */
+    margin: 5px 0;        /* Adds space between buttons */
+    border: none;         /* Removes the default border */
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg3);   /* A dark background color */
+    color: var(--bg4);          /* White text color */
+    cursor: pointer;      /* Hand cursor on hover */
+    text-align: center;   /* Centered text */
+    transition: background-color 0.3s;   /* Smooth transition for hover effect */
+    font-family: 'mainMedium', fallbackFont, sans-serif;
+}
+
+.loginCard {
+    width: 30%;
+    height: 45%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2.5%;
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg2);   /* A dark background color */
+}
+
+.loginCard label {
+    size: 100px;
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg2);   /* A dark background color */
+}
+
+.loginCard button {
+    display: block;       /* To ensure each button is on a new line */
+    width: 100%;          /* Fills the width of the parent container */
+    padding: 10px;        /* Some padding for visual comfort */
+    margin: 5px 0;        /* Adds space between buttons */
+    border: none;         /* Removes the default border */
+    border-radius: 5px;   /* Rounded corners for a modern look */
+    background-color: var(--bg1);   /* A dark background color */
+    color: var(--bg4);          /* White text color */
+    cursor: pointer;      /* Hand cursor on hover */
+    text-align: center;   /* Centered text */
+    transition: background-color 0.3s;   /* Smooth transition for hover effect */
+    font-family: 'mainMedium', fallbackFont, sans-serif;
+}
+
 
 
 

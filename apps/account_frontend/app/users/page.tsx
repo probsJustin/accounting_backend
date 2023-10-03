@@ -1,7 +1,7 @@
-import homeStyles from './page.module.css';
+import homeStyles from '../page.module.css';
 import Link from 'next/link';
-import LeftSideMenuCard from './menu/leftsideMenu';
-import Constants from '../utils/constants';
+import LeftSideMenuCard from '../menu/leftsideMenu';
+import Constants from '../../utils/constants';
 
 export default function Index() { 
   const constants = new Constants();

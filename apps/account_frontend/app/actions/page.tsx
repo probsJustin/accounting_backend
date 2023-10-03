@@ -1,7 +1,7 @@
-import homeStyles from './page.module.css';
+import homeStyles from '../page.module.css';
 import Link from 'next/link';
-import LeftSideMenuCard from './menu/leftsideMenu';
-import Constants from '../utils/constants';
+import LeftSideMenuCard from '../menu/leftsideMenu';
+import Constants from '../../utils/constants';
 
 export default function Index() { 
   const constants = new Constants();
@@ -15,7 +15,7 @@ export default function Index() {
         <div className={homeStyles.wrapper}>
         <LeftSideMenuCard />
           <div className={homeStyles.pageCard}>
-            <h3>Users</h3>
+            <h3>Actions</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet efficitur metus. Proin risus ipsum, sollicitudin ut porta non, fermentum ac ipsum. Cras sed purus sed tortor euismod condimentum. Nulla facilisi. Mauris ac nibh in nibh viverra consequat. Vivamus mollis massa a tempus laoreet. Integer lobortis vehicula pellentesque. Etiam quis consequat massa, eget vestibulum risus. In at nibh et mi feugiat vulputate sed vel ante. Aliquam luctus eros elit, efficitur sagittis velit consectetur ac. Vestibulum sed scelerisque purus, quis rhoncus sem. Aenean pretium venenatis odio pharetra scelerisque. Morbi nec justo ex. Vestibulum mattis ipsum turpis, luctus cursus arcu aliquam in.
             </p>
