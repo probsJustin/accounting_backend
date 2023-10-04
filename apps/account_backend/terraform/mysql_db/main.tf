@@ -29,10 +29,10 @@ resource "aws_subnet" "default_subnet_b" {
 }
 
 resource "aws_db_subnet_group" "default_subnet_group" {
-name       = "3lectronisys-backend-db-subnet-group"
+name       = "electronisys-backend-db-subnet-group"
 subnet_ids = [aws_subnet.default_subnet_a.id, aws_subnet.default_subnet_b.id]
   tags = {
-    Name = "3lectronisys-backend-db-subnet-group"
+    Name = "electronisys-backend-db-subnet-group"
   }
 }
 
