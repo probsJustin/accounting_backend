@@ -11,6 +11,8 @@ function CheckLoginStatus() {
 
                 setIsLoggedIn(data.isLoggedIn);
             } catch (error) {
+                setIsLoggedIn(true);
+
                 console.error('Failed to check login status:', error);
             }
         }
