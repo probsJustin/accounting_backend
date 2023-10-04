@@ -5,14 +5,14 @@ resource "aws_security_group" "alb_sg" {
 
   egress {
     from_port   = 0
-    to_port     = 0
+    to_port     = 65535
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
     from_port   = 0
-    to_port     = 0
+    to_port     = 65535
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -33,7 +33,7 @@ resource "aws_lb" "this" {
 }
 
 
-resource "aws_lb_listener" "front_end_80" {
+resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.this.arn
   port              = "80"
   protocol          = "HTTP"
