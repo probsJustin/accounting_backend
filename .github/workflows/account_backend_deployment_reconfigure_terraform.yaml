@@ -1,0 +1,79 @@
+name: Deploy to AWS, Reconfigure Terraform
+
+on:
+  workflow_dispatch:
+  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Install tree
+      run: sudo apt-get install -y tree
+
+    - name: List files with tree
+      run: tree
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: justinshagerty/account_backend:latest  # Replace 'your-dockerhub-username' and 'your-repo-name' with your details
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.5 # specify the version of Terraform you wish to use
+
+    - name: List files with tree
+      run: tree ./apps/account_backend
+
+    - name: Terraform Init
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+      
+        terraform init -reconfigure -backend-config="bucket=3lectronisys-backend" \
+                       -backend-config="key=${{ secrets.S3_KEY_PATH }}" \
+                       -backend-config="region=us-east-2" \
+                       -backend-config="dynamodb_table=3lectronisys-backend-locks" \
+                       -backend-config="encrypt=true"
+      working-directory: ./apps/account_backend/terraform
+
+    - name: List files with tree
+      run: pwd
+
+    - name: Terraform Plan
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: terraform plan 
+      working-directory: ./apps/account_backend/terraform
+
+    - name: Terraform Apply
+      env:
+        AWS_DEFAULT_REGION: us-east-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_database_username: ${{ secrets.DB_USERNAME }}
+        TF_VAR_database_password: ${{ secrets.DB_PASSWORD }}
+      run: terraform apply --auto-approve 
+      working-directory: ./apps/account_backend/terraform
+
