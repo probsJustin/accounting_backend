@@ -32,16 +32,6 @@ resource "aws_lb" "this" {
   enable_http2                        = true
 }
 
-resource "aws_lb_listener" "front_end_8080" {
-  load_balancer_arn = aws_lb.this.arn
-  port              = "8080"
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
-  }
-}
 
 resource "aws_lb_listener" "front_end_80" {
   load_balancer_arn = aws_lb.this.arn
@@ -49,7 +39,7 @@ resource "aws_lb_listener" "front_end_80" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
+    type             = "forward"  
     target_group_arn = aws_lb_target_group.this.arn
   }
 }
