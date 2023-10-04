@@ -11,7 +11,7 @@ output "alb_target_group_arn" {
 }
 
 output "alb_listener_arn" {
-  value = aws_lb_listener.front_end_80.arn
+  value = aws_lb_listener.front_end.arn
 }
 
 output "alb_zone_id" {
