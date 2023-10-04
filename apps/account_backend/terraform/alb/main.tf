@@ -66,4 +66,14 @@ resource "aws_lb_target_group" "this" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = var.ec2_vpc_id
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/api" # Modify this to your desired path
+    port                = "traffic-port"
+    timeout             = 5
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    matcher             = "200-399"
+  }
 }
