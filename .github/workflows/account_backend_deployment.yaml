@@ -76,6 +76,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         TF_VAR_database_username: ${{ secrets.DB_USERNAME }}
         TF_VAR_database_password: ${{ secrets.DB_PASSWORD }}
+        TF_VAR_session_secret: ${{ secrets.SESSION_SECRET}}
       run: terraform apply --auto-approve 
       working-directory: ./apps/account_backend/terraform
 

@@ -9,6 +9,10 @@ variable "database_username" {
   default     = "root"
 }
 
+variable "session_secret" {
+  description = "Session secret for session access"
+}
+
 variable "database_name" {
   description = "Password for the database root user"
   default     = "example"

@@ -57,7 +57,8 @@ module "ec2_backend" {
     echo DB_USERNAME="${var.database_username}" >> /etc/environment
     echo DB_PORT="${var.database_port}" >> /etc/environment
     echo DB_NAME="${var.database_name}" >> /etc/environment
-
+    echo SESSION_SECRET="${var.session_secret}" >> /etc/environment
+    
     # Start Docker
     sudo service docker start
     sudo docker pull nginx
