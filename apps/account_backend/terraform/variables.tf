@@ -10,7 +10,7 @@ variable "database_username" {
 }
 
 variable "session_secret" {
-  description = "Session secret for session access"
+  description = "Session secret for session access."
 }
 
 variable "database_name" {
