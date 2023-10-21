@@ -11,6 +11,7 @@ variable "database_username" {
 
 variable "session_secret" {
   description = "Session secret for session access."
+  default     = "example"
 }
 
 variable "database_name" {
