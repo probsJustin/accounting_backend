@@ -10,7 +10,6 @@ RUN chmod -R 777 .
 
 # Install global Nx CLI and project dependencies
 RUN npm install -g nx
-RUN npm install
 
 # Build the specific app (you can also use nx build if needed)
 # RUN nx build my-app
