@@ -30,12 +30,19 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build and push Docker Account Backend Image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: ./apps/account_backend
         push: true
         tags: justinshagerty/account_backend:latest  # Replace 'your-dockerhub-username' and 'your-repo-name' with your details
+
+    - name: Build and push Docker Account Frontend Image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./apps/account_frontend
+        push: true
+        tags: justinshagerty/account_frontend:latest  # Replace 'your-dockerhub-username' and 'your-repo-name' with your details
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
